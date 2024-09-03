@@ -1,16 +1,15 @@
-/* Booking Component Styles */
-.booking-container {
+.payment-container {
   max-width: 600px;
   margin: 50px auto;
   padding: 40px 20px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-  /* background-image: url('assets/images/booking-bg.jpg');  */
-  background-size: cover;
-  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.payment-container:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
 h2 {
@@ -24,39 +23,46 @@ h2 {
 }
 
 label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
   font-weight: bold;
   color: #333;
 }
 
-
-label i {
-  margin-right: 8px;
-  color: #0dc6eb; /* Icon color */
-}
-
 input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="date"],
-input[type="time"],
-select {
-  width: 90%; /* Ensure full width */
+input[type="month"],
+input[type="email"] {
+  width: 90%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow to inputs */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-size: 16px;
 }
 
-input:focus,
-select:focus {
+input:focus {
   border-color: #0dc6eb;
   outline: none;
-  box-shadow: 0 0 5px rgba(13, 198, 235, 0.5); /* Shadow on focus */
+  box-shadow: 0 0 5px rgba(13, 198, 235, 0.5);
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-options label {
+  margin: 5px 0;
+}
+
+.total-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-amount {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0dc6eb; /* Highlight the total amount */
 }
 
 .submit-button {
@@ -78,7 +84,11 @@ select:focus {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .booking-container {
+  .payment-container {
     padding: 30px 15px;
+  }
+
+  .total-amount {
+    font-size: 1.2em; /* Adjust font size for smaller screens */
   }
 }

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -75,9 +76,12 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookingComponent { 
+  router = inject(Router);
   onSubmit() {
     // Handle form submission logic
     alert('Booking submitted successfully!');
-    // You can also log the form values or send them to a server
+    
+    // Navigate to the payment component
+    this.router.navigate(['/payment']);
   }
 }
