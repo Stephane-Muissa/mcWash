@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--fith-color);
+    color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    /* Optional: limit max width */
+    margin: 0 auto;
+    /* Center the navbar */
+    width: 100%;
+    /* Ensure it takes full width */
+}
+
+.navbar-logo {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.navbar-links a:hover {
+    color: var(--primary2-color);
+}
+
+/* Show toggle button for mobile */
+.navbar-toggle {
+    display: none;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar-links {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        /* Adjust based on navbar height */
+        left: 0;
+        /* Align to left */
+        width: 100%;
+        background: var(--fith-color);
+        transition: max-height 0.3s ease;
+        max-height: 0;
+        /* Hide links initially */
+        overflow: hidden;
+        /* Hide overflow */
+    }
+
+    .navbar-links.active {
+        max-height: 300px;
+        /* Maximum height when active */
+    }
+
+    .navbar-links a {
+        padding: 10px 20px;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .navbar-toggle {
+        display: block;
+        /* Show toggle button */
+        cursor: pointer;
+        color: var(--primary-color);
+        font-size: 1.5em;
+        /* Increase font size */
+        margin-right: 10%;
+    }
+
+}
+

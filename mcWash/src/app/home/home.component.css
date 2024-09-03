@@ -1,3 +1,216 @@
-:host {
-  display: block;
+/* Home Page Styles */
+
+body {
+  margin: 0;
+
+}
+
+.hero {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  text-align: center;
+  padding: 50px 20px;
+  background-image: url('/src/assets/car.png'); /* Add background image */
+  background-size: cover;
+  background-position: center;
+}
+
+.cta-button {
+  background-color: var(--fith-color);
+  color: #ffffff;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #525c61;
+  transform: scale(1.05);
+}
+
+.services, .features, .pricing, .testimonials, .faq, .contact {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.service-list, .feature-list, .pricing-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.service-item, .feature-item, .pricing-item {
+  background-color: #9bb0bf;
+  color: var(--fith-color);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  flex: 1 1 calc(25% - 20px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.service-item:hover, .feature-item:hover {
+  transform: translateY(-5px);
+}
+
+.service-item img {
+  width: 50px; /* Adjust icon size */
+  margin-bottom: 10px;
+}
+
+.testimonial-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.testimonial-item {
+  background-color: var(--fith-color);
+  color: #ffffff;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.faq-item {
+  margin: 15px 0;
+}
+
+/* Gallery Section Styles */
+.gallery {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  opacity: 0; /* Start hidden for fade-in effect */
+  animation: fadeIn 1s forwards; /* Fade-in animation */
+}
+
+.gallery h2 {
+  margin-bottom: 30px;
+}
+
+/* Grid Layout for Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+/* Image Styles */
+.gallery-grid img {
+  width: 100%;
+  border-radius: 5px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  opacity: 0; /* Start hidden for fade-in effect */
+  animation: slideIn 0.6s forwards; /* Slide-in animation for each image */
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1); /* Slightly brighten on hover */
+}
+
+/* Keyframes for Animations */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Delay for Images */
+.gallery-grid img:nth-child(1) { animation-delay: 0.1s; }
+.gallery-grid img:nth-child(2) { animation-delay: 0.2s; }
+.gallery-grid img:nth-child(3) { animation-delay: 0.3s; }
+.gallery-grid img:nth-child(4) { animation-delay: 0.4s; }
+.gallery-grid img:nth-child(5) { animation-delay: 0.5s; }
+.gallery-grid img:nth-child(6) { animation-delay: 0.6s; }
+
+/* Contact Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+label {
+  margin: 10px 0 5px;
+}
+
+input, textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #0dc6eb;
+  color: #ffffff;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--fith-color);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #21282e;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #0dc6eb;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .service-item, .feature-item, .pricing-item {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .service-item, .feature-item, .pricing-item {
+    flex: 1 1 100%;
+  }
 }

@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+  }
+
+  :root {
+    --primary-color: #0dc6eb;
+    --primary2-color: #086072;
+    --secondary-color: #9bb0bf;
+    --tertiary-color: #525c61;
+    --fith-color:#21282e;
+    --text-color: #ffffff;
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #21282e;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #0dc6eb;
+    border-radius: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #086072;
+  }
