@@ -34,14 +34,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
     </form>
   </section>
 
-  <section class="user-feedback">
+  <!-- <section class="user-feedback">
     <h3>User Feedback</h3>
     <ul>
       <li *ngFor="let feedback of userFeedback">
         <p><strong>{{ feedback.user }}:</strong> {{ feedback.message }}</p>
       </li>
     </ul>
-  </section>
+  </section> -->
 
   <section class="manage-team">
     <h3>Manage Team Members</h3>

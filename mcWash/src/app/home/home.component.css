@@ -9,7 +9,7 @@ body {
   background-color: var(--primary-color);
   color: #ffffff;
   text-align: center;
-  padding: 50px 20px;
+  padding: 60px 20px;
   background-image: url('/src/assets/car.png'); /* Add background image */
   background-size: cover;
   background-position: center;

@@ -76,6 +76,16 @@ select:focus {
   transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
+.submit-button:disabled {
+  background-color: #ccc; /* Disabled color */
+  color: #666;
+  cursor: not-allowed;
+}
+
+small{
+  color: red;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .booking-container {

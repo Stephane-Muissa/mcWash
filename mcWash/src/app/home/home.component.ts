@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     CommonModule,
   ],
   template: `<div class="hero">
-  <h1>Welcome to Mobile Car Wash</h1>
+  <h1>Welcome to FM Mobile Car Wash <Span>Detailing</Span></h1>
   <p>Convenient car cleaning at your doorstep.</p>
   <a routerLink="/booking" class="cta-button">Book Now</a>
 </div>

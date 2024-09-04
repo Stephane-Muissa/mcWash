@@ -5,6 +5,7 @@ body {
 
 .navbar {
     position: fixed;
+    height: 50px; /* Fixed height for the navbar */
     top: 0;
     left: 0;
     width: 100%;
@@ -24,10 +25,14 @@ body {
     margin: 0 auto;
     /* Center the navbar */
     width: 100%;
+    position: relative;
+    top: -30px;
     /* Ensure it takes full width */
 }
 
 .navbar-logo {
+    
+  flex-shrink: 0; /* Prevent the logo from shrinking */
     font-size: 1.5em;
     color: var(--primary-color);
     text-decoration: none;
@@ -54,7 +59,12 @@ body {
     display: none;
 }
 
-
+.navbar-logo-img {
+    width: 120px; /* Set your desired width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure it behaves as a block element */
+    margin: auto; /* Center the logo if needed */
+  }
 /* Responsive Styles */
 @media (max-width: 768px) {
     .navbar-links {
@@ -93,6 +103,23 @@ body {
         font-size: 1.5em;
         /* Increase font size */
         margin-right: 10%;
+    }
+
+    .navbar-logo-img {
+        width: 100px; /* Set your desired width */
+        height: auto; /* Maintain aspect ratio */
+        display: block; /* Ensure it behaves as a block element */
+
+      }
+
+      .navbar-container {
+        position: relative;
+        top: -20px;
+        /* Ensure it takes full width */
+    }
+
+    .navbar {
+        height: 50px; /* Fixed height for the navbar */
     }
 
 }
