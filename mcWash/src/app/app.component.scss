@@ -8,7 +8,7 @@ body {
     height: 50px; /* Fixed height for the navbar */
     top: 0;
     left: 0;
-    width: 97%;
+    width: 98%;
     background-color: var(--fith-color);
     color: #ffffff;
     padding: 15px 20px;
@@ -64,6 +64,28 @@ body {
     height: auto; /* Maintain aspect ratio */
     display: block; /* Ensure it behaves as a block element */
     margin: auto; /* Center the logo if needed */
+  }
+
+  /* Footer Styles */
+footer {
+    background-color: #21282e;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .footer-links {
+    margin-top: 10px;
+  }
+  
+  .footer-links a {
+    color: #0dc6eb;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
   }
 /* Responsive Styles */
 @media (max-width: 768px) {

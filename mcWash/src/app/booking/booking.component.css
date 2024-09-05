@@ -1,6 +1,11 @@
 /* Booking Component Styles */
+body {
+  height: 100%;
+  margin: 0;
+}
 .booking-container {
   max-width: 600px;
+  min-height: 100vh;
   margin: 50px auto;
   padding: 40px 20px;
   background-color: #ffffff;
@@ -84,6 +89,45 @@ select:focus {
 
 small{
   color: red;
+}
+
+.alert {
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+  background-color: #e7f3fe; /* Light blue background */
+  color: #31708f; /* Darker blue text */
+  border: 1px solid #b3d4ea; /* Light blue border */
+}
+
+.alert strong {
+  font-weight: bold;
+}
+
+.alert p {
+  margin: 0; /* Remove default margin */
+  line-height: 1.5; /* Increase line height for readability */
+}
+
+.check-button {
+  background-color: var(--primary-color); /* Blue background */
+  color: white; /* White text */
+  padding: 10px 15px; /* Padding for the button */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.check-button:hover {
+  background-color: var(--primary2-color); /* Darker blue on hover */
+}
+
+.check-button:disabled {
+  background-color: #ccc; /* Disabled color */
+  color: #666;
+  cursor: not-allowed;
 }
 
 /* Responsive Styles */

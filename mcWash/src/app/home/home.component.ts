@@ -152,14 +152,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   </form>
 </section>
 
-<footer>
+<!-- <footer>
   <p>&copy; 2024 Mobile Car Wash. All rights reserved.</p>
   <div class="footer-links">
     <a routerLink="/about">About Us</a>
     <a routerLink="/contact">Contact</a>
     <a routerLink="/privacy">Privacy Policy</a>
   </div>
-</footer>`,
+</footer> -->
+`,
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
