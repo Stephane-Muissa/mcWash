@@ -117,7 +117,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 <div class="section-divider"></div>
 
-<section class="cleaning-packages">
+<section class="pricing">
   <h2>Home Cleaning Packages</h2>
   <div class="pricing-list">
     <div class="pricing-item">
