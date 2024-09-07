@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     CommonModule,
   ],
   template: `<div class="hero">
-  <h1>Welcome to FM Mobile Car Wash <Span>Detailing</Span></h1>
+  <h1>Welcome to FM Mobile Car Wash <span>Detailing</span></h1>
   <p>Convenient car cleaning at your doorstep.</p>
   <a routerLink="/booking" class="cta-button">Book Now</a>
 </div>
@@ -39,6 +39,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   </div>
 </section>
 
+<div class="section-divider"></div>
+
 <section class="features">
   <h2>Why Choose Us?</h2>
   <div class="feature-list">
@@ -60,24 +62,31 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </div>
   </div>
 </section>
+
+<div class="section-divider"></div>
+
 <section class="gallery">
   <h2>Our Work</h2>
-  <div class="gallery-grid">
-    <img src="assets/car.png" alt="Car Wash Example 1" />
-    <img src="assets/car.png" alt="Car Wash Example 2" />
-    <img src="assets/car.png" alt="Car Wash Example 3" />
-    <img src="assets/car.png" alt="Car Wash Example 4" />
-    <img src="assets/car.png" alt="Car Wash Example 5" />
-    <img src="assets/car.png" alt="Car Wash Example 6" />
-  </div>
+  <div class="gallery-images" [style.transform]="'translateX(-' + currentImageIndex * 100 + '%)'">
+        <img *ngFor="let image of images; let i = index"
+             [src]="image"
+             [alt]="'Car Wash Example ' + (i + 1)" />
+    </div>
+    <div class="gallery-controls">
+        <button class="nav-button" (click)="prevImage()">Previous</button>
+        <button class="nav-button" (click)="nextImage()">Next</button>
+    </div>
 </section>
+
+<div class="section-divider"></div>
+
 <section class="pricing">
-  <h2>Pricing Plans</h2>
+  <h2>Car Wash Pricing Plans</h2>
   <div class="pricing-list">
     <div class="pricing-item">
       <h3>Basic Package</h3>
-      <p>$30</p>
-      <p>Exterior wash and interior vacuum.</p>
+      <p><strong>Price:</strong> $30</p>
+      <p>A quick and efficient exterior wash combined with a thorough interior vacuuming.</p>
       <ul>
         <li>Exterior wash</li>
         <li>Interior vacuum</li>
@@ -85,26 +94,79 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </div>
     <div class="pricing-item">
       <h3>Standard Package</h3>
-      <p>$50</p>
-      <p>Basic package + interior cleaning and detailing.</p>
+      <p><strong>Price:</strong> $50</p>
+      <p>Includes all Basic Package services plus a detailed interior cleaning and exterior detailing.</p>
       <ul>
         <li>All Basic Package services</li>
-        <li>Interior cleaning</li>
-        <li>Detailing</li>
+        <li>Interior cleaning (seats, carpets, surfaces)</li>
+        <li>Detailing (waxing and polishing)</li>
       </ul>
     </div>
     <div class="pricing-item">
       <h3>Premium Package</h3>
-      <p>$80</p>
-      <p>Standard package + waxing and tire shine.</p>
+      <p><strong>Price:</strong> $80</p>
+      <p>Comprehensive cleaning that includes everything from the Standard Package, plus waxing and tire shine.</p>
       <ul>
         <li>All Standard Package services</li>
-        <li>Waxing</li>
-        <li>Tire shine</li>
+        <li>Waxing for paint protection</li>
+        <li>Tire shine for a polished look</li>
       </ul>
     </div>
   </div>
 </section>
+
+<div class="section-divider"></div>
+
+<section class="cleaning-packages">
+  <h2>Home Cleaning Packages</h2>
+  <div class="pricing-list">
+    <div class="pricing-item">
+      <h3>Basic Cleaning Package</h3>
+      <p><strong>Price:</strong> $100</p>
+      <p>Regular maintenance cleaning to keep your home fresh and tidy.</p>
+      <ul>
+        <li>Dusting all surfaces</li>
+        <li>Vacuuming and mopping floors</li>
+        <li>Kitchen cleaning (counters, sinks)</li>
+        <li>Bathroom cleaning (toilets, sinks, mirrors)</li>
+      </ul>
+    </div>
+    <div class="pricing-item">
+      <h3>Standard Cleaning Package</h3>
+      <p><strong>Price:</strong> $150</p>
+      <p>A deeper clean that includes all Basic Package services plus detailed attention to neglected areas.</p>
+      <ul>
+        <li>All Basic Package services</li>
+        <li>Detailed dusting of baseboards and windows</li>
+        <li>Floor cleaning (vacuuming and mopping)</li>
+      </ul>
+    </div>
+    <div class="pricing-item">
+      <h3>Premium Cleaning Package</h3>
+      <p><strong>Price:</strong> $250</p>
+      <p>Extensive cleaning service for homes needing thorough detailing.</p>
+      <ul>
+        <li>All Standard Package services</li>
+        <li>Deep cleaning of bathrooms (including grout)</li>
+        <li>Cleaning inside of appliances (oven, microwave)</li>
+        <li>Sofa cleaning for upholstery care</li>
+      </ul>
+    </div>
+    <div class="pricing-item">
+      <h3>Post-Construction Cleaning Package</h3>
+      <p><strong>Price:</strong> From $300</p>
+      <p>Specialized cleaning for homes after renovations or construction.</p>
+      <ul>
+        <li>Debris removal from the site</li>
+        <li>Dusting all surfaces, including walls and ceilings</li>
+        <li>Window cleaning (inside and outside)</li>
+        <li>Thorough floor cleaning (vacuuming and mopping)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
 
 <section class="testimonials">
   <h2>What Our Customers Say</h2>
@@ -119,6 +181,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </div>
   </div>
 </section>
+
+<div class="section-divider"></div>
 
 <section class="faq">
   <h2>Frequently Asked Questions</h2>
@@ -136,6 +200,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   </div>
 </section>
 
+<div class="section-divider"></div>
+
 <section class="contact">
   <h2>Contact Us</h2>
   <form>
@@ -151,17 +217,29 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     <button type="submit">Send Message</button>
   </form>
 </section>
-
-<!-- <footer>
-  <p>&copy; 2024 Mobile Car Wash. All rights reserved.</p>
-  <div class="footer-links">
-    <a routerLink="/about">About Us</a>
-    <a routerLink="/contact">Contact</a>
-    <a routerLink="/privacy">Privacy Policy</a>
-  </div>
-</footer> -->
 `,
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent { }
+export class HomeComponent { 
+  currentImageIndex = 0;
+  images = [
+    'assets/car.png',
+    'assets/logo.png',
+    'assets/car.png',
+    'assets/car.png',
+    'assets/car.png',
+    'assets/car.png'
+];
+
+  showImage(index: number) {
+      this.currentImageIndex = index;
+  }
+  nextImage() {
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+}
+
+prevImage() {
+    this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+}
+}

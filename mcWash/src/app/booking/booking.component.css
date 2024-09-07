@@ -2,6 +2,7 @@
 body {
   height: 100%;
   margin: 0;
+  font-family: 'Poppins', sans-serif;
 }
 .booking-container {
   max-width: 600px;
@@ -55,6 +56,7 @@ select {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow to inputs */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-size: 16px;
+  font-family: 'Poppins', sans-serif;
 }
 
 input:focus,

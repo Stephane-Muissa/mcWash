@@ -16,4 +16,8 @@ export class AppComponent {
   toggleNavbar() {
     this.isNavOpen = !this.isNavOpen;
   }
+
+  closeNavbar() {
+    this.isNavOpen = false;
+  }
 }

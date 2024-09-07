@@ -4,11 +4,11 @@
       <img src="assets/logo.png" alt="FM Mobile Car Wash" class="navbar-logo-img" /></a>
     <div class="navbar-toggle" (click)="toggleNavbar()">☰</div>
     <div class="navbar-links" [class.active]="isNavOpen">
-      <a routerLink="/" routerLinkActive="active">Home</a>
-      <a routerLink="/services" routerLinkActive="active">Services</a>
-      <a routerLink="/booking" routerLinkActive="active">Booking</a>
-      <a routerLink="/contact" routerLinkActive="active">Contact</a>
-      <a routerLink="/about" routerLinkActive="active">About</a>
+      <a routerLink="/" routerLinkActive="active" (click)="closeNavbar()" >Home</a>
+      <a routerLink="/services" routerLinkActive="active" (click)="closeNavbar()">Services</a>
+      <a routerLink="/booking" routerLinkActive="active" (click)="closeNavbar()">Booking</a>
+      <a routerLink="/contact" routerLinkActive="active" (click)="closeNavbar()">Contact</a>
+      <a routerLink="/about" routerLinkActive="active" (click)="closeNavbar()">About</a>
     </div>
   </div>
 </nav>
