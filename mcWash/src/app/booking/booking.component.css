@@ -17,6 +17,7 @@ body {
   /* background-image: url('assets/images/booking-bg.jpg');  */
   background-size: cover;
   background-position: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 h2 {
@@ -76,6 +77,7 @@ select:focus {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   font-size: 18px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .submit-button:hover {
@@ -120,6 +122,7 @@ small{
   cursor: pointer; /* Pointer cursor on hover */
   font-size: 16px; /* Font size */
   transition: background-color 0.3s; /* Smooth transition */
+  font-family: 'Poppins', sans-serif;
 }
 
 .check-button:hover {
@@ -131,7 +134,9 @@ small{
   color: #666;
   cursor: not-allowed;
 }
-
+h2, h3, h1{
+  font-family: 'Poppins', sans-serif;
+}
 /* Responsive Styles */
 @media (max-width: 768px) {
   .booking-container {

@@ -2,8 +2,12 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { PaymentService } from '../servicesFolder/payment.service';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrderService } from '../servicesFolder/order.service';
+import { take } from 'rxjs';
+import * as _ from 'lodash';
+import { ThankYouDialogComponent } from '../thankYouDialog/thankYouDialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-payment',
   standalone: true,
@@ -81,11 +85,10 @@ export class PaymentComponent {
   selectedPaymentMethod = 'Cash'; // Default selection
   paymentResponse: any;
 
-  constructor(private paymentService: PaymentService, private route: ActivatedRoute) {}
+  constructor(private paymentService: PaymentService, private route: ActivatedRoute, private orderService: OrderService, private dialog: MatDialog,private router: Router ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       if (params['cleaningPackage']) {
         this.originalAmount = Number(params['cleaningPackage']);
       } else {
@@ -116,7 +119,40 @@ export class PaymentComponent {
   }
 
   onSubmit(form: any) {
-    console.log(form);
-    alert(`Payment processed successfully! Total amount: $${this.totalAmount} using ${this.selectedPaymentMethod}`);
+    this.orderService
+      .getPostsByPhoneNumber(this.phone)
+      .pipe(take(1))
+      .subscribe((users) => {
+        if (users.length > 0) {
+          // Sort users by orderTime in descending order
+          const mostRecentUser = _.orderBy(users, ['orderTime'], ['desc'])[0];
+          const obj = {
+            name: this.name,
+            phone:this.phone,
+            status: this.selectedPaymentMethod === 'Cash'? 'Cash':'',
+            selectedPayment:this.selectedPaymentMethod,
+            orderId:mostRecentUser.id,
+            amount: this.originalAmount,
+            discount:this.discountAmount,
+            totalAmount: this.totalAmount,
+            date:mostRecentUser.date,
+            paymentTime: new Date()
+          }
+           this.paymentService.addPost(obj)
+          console.log(mostRecentUser);
+          this.openThankYouDialog();
+          // Use mostRecentUser as needed
+        } 
+      });
+  }
+  openThankYouDialog() {
+    const dialogRef = this.dialog.open(ThankYouDialogComponent, {
+      width: '600px',
+      panelClass: 'centered-dialog' // Add this line
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/']); // Redirect to home after dialog is closed
+    });
   }
 }

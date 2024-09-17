@@ -12,6 +12,8 @@ export class OrderService {
   
   addPost(post: any): Promise<void> {
     post['status'] = 'Pending';
+    post['package'] = post.carWashPackage ? post.carWashPackage:post.cleaningPackage;
+    post['orderTime'] =  new Date();
     const postRef: AngularFirestoreDocument<any> = this.firestore.collection('orders').doc(); // Create a new document reference
     post['id'] = postRef.ref.id; // Add the document ID to the post data
     return postRef.set(post); // Use set to add the document with the ID

@@ -3,6 +3,8 @@
   margin: 50px auto;
   padding: 20px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
+ 
 }
 
 h2 {
@@ -86,7 +88,9 @@ ul {
   font-weight: bold;
   text-decoration: underline;
 }
-
+h2, h3, h1{
+  font-family: 'Poppins', sans-serif;
+}
 /* Responsive Styles */
 @media (max-width: 768px) {
   .about-container {

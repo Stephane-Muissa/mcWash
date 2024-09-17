@@ -9,6 +9,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { Firestore } from '@angular/fire/firestore';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -31,6 +32,6 @@ export const appConfig: ApplicationConfig = {
       AngularFireDatabase,
       AngularFirestoreModule,
       AngularFireFunctionsModule
-    ]),
+    ]), provideAnimationsAsync(),
   ]
 };

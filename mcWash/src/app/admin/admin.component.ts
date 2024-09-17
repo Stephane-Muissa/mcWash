@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AdminService } from '../servicesFolder/admin.service';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -9,192 +11,160 @@ import { NgxPaginationModule } from 'ngx-pagination';
   imports: [
     CommonModule, FormsModule, NgxPaginationModule
   ],
-  template: `<div class="admin-container">
+  template: `
+<div class="admin-container">
   <h2>Admin Console</h2>
 
-  <section class="manage-services">
-    <h3>Manage Services</h3>
-    <form  #serviceForm="ngForm" class="service-form">
-      <div class="form-group">
-        <label for="serviceName">Service Name:</label>
-        <input type="text" id="serviceName" required ngModel name="serviceName">
-      </div>
-
-      <div class="form-group">
-        <label for="serviceDescription">Description:</label>
-        <textarea id="serviceDescription" required ngModel name="serviceDescription" rows="3"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="serviceImage">Image URL:</label>
-        <input type="text" id="serviceImage" required ngModel name="serviceImage">
-      </div>
-
-      <button type="submit" class="submit-button">Add Service</button>
-    </form>
-  </section>
-
-  <!-- <section class="user-feedback">
-    <h3>User Feedback</h3>
-    <ul>
-      <li *ngFor="let feedback of userFeedback">
-        <p><strong>{{ feedback.user }}:</strong> {{ feedback.message }}</p>
-      </li>
-    </ul>
-  </section> -->
-
-  <section class="manage-team">
-    <h3>Manage Team Members</h3>
-    <form  #teamForm="ngForm" class="team-form">
-      <div class="form-group">
-        <label for="memberName">Team Member Name:</label>
-        <input type="text" id="memberName" required ngModel name="memberName">
-      </div>
-
-      <div class="form-group">
-        <label for="memberPosition">Position:</label>
-        <input type="text" id="memberPosition" required ngModel name="memberPosition">
-      </div>
-
-      <div class="form-group">
-        <label for="memberImage">Image URL:</label>
-        <input type="text" id="memberImage" required ngModel name="memberImage">
-      </div>
-
-      <button type="submit" class="submit-button">Add Team Member</button>
-    </form>
-  </section>
-
   <section class="order-history">
-    <h3>Order History</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>User</th>
-          <th>Service</th>
-          <th>Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of orderHistory | paginate: { itemsPerPage: 5, currentPage: p }">
-          <td>{{ order.id }}</td>
-          <td>{{ order.user }}</td>
-          <td>{{ order.service }}</td>
-          <td>{{ order.date | date }}</td>
-          <td>{{ order.status }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-    <p>Page: {{ p }}</p>
-  </section>
+  <h3>Order History</h3>
+  <input class="search-box" type="text"  [(ngModel)]="orderSearch" placeholder="Search by name" (input)="filterOrders()" />
+  <select [(ngModel)]="orderSort" (change)="sortOrders()">
+    <option value="asc">Sort by Date (Ascending)</option>
+    <option value="desc">Sort by Date (Descending)</option>
+  </select>
+  <div class="card-container">
+    <div class="card" *ngFor="let order of filteredOrders | paginate: { itemsPerPage: 3, currentPage: p }">
+      <div class="card-header">
+        <span class="label">Order ID:</span> {{ order.id }}
+      </div>
+      <div class="card-body">
+        <div><span class="label">Name:</span> {{ order.name }}</div>
+        <div><span class="label">Email:</span> {{ order.email }}</div>
+        <div><span class="label">Service:</span> {{ order.service }}</div>
+        <div><span class="label">Package:</span> {{ order.package | currency}}</div>
+        <div><span class="label">Date:</span> {{ order.date }}</div>
+        <div><span class="label">Time:</span> {{ order.time }}</div>
+        <div><span class="label">Status:</span> {{ order.status }}</div>
+      </div>
+    </div>
+    <div *ngIf="!filteredOrders.length" class="card empty-card">
+      No orders found.
+    </div>
+  </div>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  <p>Page: {{ p }}</p>
+</section>
 
-  <section class="current-payments">
-    <h3>Current Payments</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Payment ID</th>
-          <th>User</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let payment of currentPayments | paginate: { itemsPerPage: 5, currentPage: p2 }">
-          <td>{{ payment.id }}</td>
-          <td>{{ payment.user }}</td>
-          <td>{{ payment.amount | currency }}</td>
-          <td>{{ payment.date | date }}</td>
-          <td>{{ payment.status }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
-    <p>Page: {{ p2 }}</p>
-  </section>
+<section class="current-payments">
+  <h3>Current Payments</h3>
+  <input class="search-box" type="text" [(ngModel)]="paymentSearch" placeholder="Search by name" (input)="filterPayments()" />
+  <div class="card-container">
+    <div class="card" *ngFor="let payment of filteredPayments | paginate: { itemsPerPage: 3, currentPage: p2 }">
+      <div class="card-header">
+        <span class="label">Payment ID:</span> {{ payment.id }}
+      </div>
+      <div class="card-body">
+        <div><span class="label">Name:</span> {{ payment.name }}</div>
+        <div><span class="label">Amount:</span> {{ payment.amount | currency }}</div>
+        <div><span class="label">Date:</span> {{ payment.date | date }}</div>
+        <div><span class="label">Order ID:</span> {{ payment.orderId }}</div>
+        <div><span class="label">Status:</span> {{ payment.status }}</div>
+      </div>
+    </div>
+    <div *ngIf="!filteredPayments.length" class="card empty-card">
+      No payments found.
+    </div>
+  </div>
+  <pagination-controls (pageChange)="p2 = $event"></pagination-controls>
+  <p>Page: {{ p2 }}</p>
+</section>
 
   <section class="user-details">
-    <h3>User Details</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Joined</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users | paginate: { itemsPerPage: 5, currentPage: p3 }">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.joined | date }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="p3 = $event"></pagination-controls>
-    <p>Page: {{ p3 }}</p>
-  </section>
+  <h3>User Details</h3>
+  <input class="search-box" type="text"  [(ngModel)]="userSearch" placeholder="Search by name" (input)="filterUsers()" />
+  <div class="card-container">
+    <div class="card" *ngFor="let user of filteredUsers | paginate: { itemsPerPage: 3, currentPage: p3 }">
+      <div class="card-header">
+        <span class="label">User ID:</span> {{ user.id }}
+      </div>
+      <div class="card-body">
+        <div><span class="label">Name:</span> {{ user.name }}</div>
+        <div><span class="label">Email:</span> {{ user.email }}</div>
+        <div><span class="label">Joined:</span> {{ user.joined | date }}</div>
+      </div>
+    </div>
+    <div *ngIf="!filteredUsers.length" class="card empty-card">
+      No users found.
+    </div>
+  </div>
+  <pagination-controls (pageChange)="p3 = $event"></pagination-controls>
+  <p>Page: {{ p3 }}</p>
+</section>
 </div>`,
   styleUrl: './admin.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminComponent { 
-  p: number = 1;  // For order history pagination
-  p2: number = 1; // For current payments pagination
-  p3: number = 1; // For user details pagination
+  p:number = 1;
+  p2:number = 1;
+  p3:number = 1;
 
-  userFeedback = [
-    { user: 'John Doe', message: 'Great service!' },
-    { user: 'Jane Smith', message: 'Very satisfied with my experience.' },
-    { user: 'Emily Johnson', message: 'Friendly staff and quick service.' }
-  ];
-
-  services:any = [];
-
-  addService(serviceForm: any) {
-    const newService = {
-      name: serviceForm.serviceName,
-      description: serviceForm.serviceDescription,
-      image: serviceForm.serviceImage
-    };
-    this.services.push(newService);
-    serviceForm.reset();
+  adminService = inject(AdminService)
+  orderSearch: string = '';
+  paymentSearch: string = '';
+  userSearch: string = '';
+  
+  filteredOrders: any[] = [];
+  filteredPayments: any[] = [];
+  filteredUsers: any[] = [];
+  
+  orderSort: string = 'asc'; // Default sort order for orders
+  ngOnInit() {
+    this.getOrders();
+    this.getPayments();
+    this.getUsers();
   }
 
-  teamMembers:any = [];
-
-  addTeamMember(teamForm: any) {
-    const newMember = {
-      name: teamForm.memberName,
-      position: teamForm.memberPosition,
-      image: teamForm.memberImage
-    };
-    this.teamMembers.push(newMember);
-    teamForm.reset();
+  getOrders() {
+    this.adminService.getOrders().pipe(
+      tap(data => {
+        this.filteredOrders = data; // Set to all orders initially
+      })
+    ).subscribe();
   }
 
-  orderHistory = [
-    { id: 1, user: 'John Doe', service: 'Full Service Wash', date: new Date(), status: 'Completed' },
-    { id: 2, user: 'Jane Smith', service: 'Express Wash', date: new Date(), status: 'Pending' },
-    { id: 3, user: 'Emily Johnson', service: 'Detailing Package', date: new Date(), status: 'Completed' },
-    // Add more orders for testing pagination
-  ];
+  getPayments() {
+    this.adminService.getPayments().pipe(
+      tap(data => {
+        this.filteredPayments = data; // Set to all payments initially
+      })
+    ).subscribe();
+  }
 
-  currentPayments = [
-    { id: 'P001', user: 'John Doe', amount: 29.99, date: new Date(), status: 'Paid' },
-    { id: 'P002', user: 'Jane Smith', amount: 15.99, date: new Date(), status: 'Pending' },
-    { id: 'P003', user: 'Emily Johnson', amount: 79.99, date: new Date(), status: 'Paid' }
-  ];
+  getUsers() {
+    this.adminService.getUsers().pipe(
+      tap(data => {
+        this.filteredUsers = data; // Set to all users initially
+      })
+    ).subscribe();
+  }
 
-  users = [
-    { id: 'U001', name: 'John Doe', email: 'john@example.com', joined: new Date('2022-01-01') },
-    { id: 'U002', name: 'Jane Smith', email: 'jane@example.com', joined: new Date('2022-01-15') },
-    { id: 'U003', name: 'Emily Johnson', email: 'emily@example.com', joined: new Date('2022-02-20') }
-  ];
+  filterOrders() {
+    this.getOrders(); // Re-fetch to reset
+    this.filteredOrders = this.filteredOrders.filter(order => 
+      order.name.toLowerCase().includes(this.orderSearch.toLowerCase())
+    );
+  }
+
+  sortOrders() {
+    this.filteredOrders.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return this.orderSort === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
+    });
+  }
+
+  filterPayments() {
+    this.getPayments(); // Re-fetch to reset
+    this.filteredPayments = this.filteredPayments.filter(payment => 
+      payment.name.toLowerCase().includes(this.paymentSearch.toLowerCase())
+    );
+  }
+
+  filterUsers() {
+    this.getUsers(); // Re-fetch to reset
+    this.filteredUsers = this.filteredUsers.filter(user => 
+      user.name.toLowerCase().includes(this.userSearch.toLowerCase())
+    );
+  }
 }

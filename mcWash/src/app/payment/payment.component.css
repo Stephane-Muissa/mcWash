@@ -83,7 +83,9 @@ input:focus {
   background-color: #000000;
   transform: scale(1.05); /* Slightly enlarge on hover */
 }
-
+h2, h3, h1{
+  font-family: 'Poppins', sans-serif;
+}
 /* Responsive Styles */
 @media (max-width: 768px) {
   .payment-container {

@@ -3,12 +3,12 @@
   margin: 50px auto;
   padding: 20px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 h2 {
   margin-bottom: 40px;
   color: #0dc6eb;
-  font-family: 'Arial', sans-serif;
 }
 
 .services-grid {
@@ -93,6 +93,7 @@ p {
 
 .faq {
   text-align: left;
+  font-family: 'Poppins', sans-serif;
 }
 
 .faq-item {
@@ -107,12 +108,14 @@ p {
   background-color: #e9e9e9;
   padding: 10px;
   border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .faq-answer {
   padding: 10px;
   border-left: 2px solid #0dc6eb;
   background-color: #f1f1f1;
+  font-family: 'Poppins', sans-serif;
 }
 
 .toggle-icon {
@@ -121,6 +124,10 @@ p {
 
 .toggle-icon.open {
   transform: rotate(180deg); /* Rotate icon when open */
+}
+
+h2, h3,h4, h1{
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Responsive Styles */

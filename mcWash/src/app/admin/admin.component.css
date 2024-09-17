@@ -1,88 +1,117 @@
 .admin-container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  text-align: center;
+  padding: 1rem;
+ /* background-color: var(--fith-color);  */
+ font-family: 'Poppins', sans-serif;
 }
-
-h2 {
-  margin-bottom: 40px;
-  color: #0dc6eb;
-}
-
-section {
-  margin-bottom: 30px;
-  text-align: left;
-}
-
-h3 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
+h1, h2, h3,h4{
   font-weight: bold;
-  color: #333;
+  font-family: 'Poppins', sans-serif;
 }
 
-input[type="text"],
-textarea {
-  width: 90%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-input:focus,
-textarea:focus {
-  border-color: #0dc6eb;
-  outline: none;
-  box-shadow: 0 0 5px rgba(13, 198, 235, 0.5);
+.card {
+  background: var(--primary2-color); /* Use primary2 color */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
+  padding: 1rem;
+  flex: 1 1 calc(33% - 2rem); /* Responsive flex for PC */
+  transition: transform 0.2s;
+  color: var(--text-color); /* Use text color for card text */
 }
 
-.submit-button {
-  background-color: #0dc6eb;
-  color: #ffffff;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.card:hover {
+  transform: translateY(-2px);
+  background: var(--primary-color); /* Change background on hover */
 }
 
-.submit-button:hover {
-  background-color: #000000;
+.card-header {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
-table {
-  width: 90%;
-  border-collapse: collapse;
-  margin-top: 20px;
+.card-body {
+  display: flex;
+  flex-direction: column;
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
+.label {
+  font-weight: bold;
+  color: var(--secondary-color); /* Use secondary color for labels */
 }
 
-th {
-  background-color: #0dc6eb;
-  color: white;
+.empty-card {
+  padding: 1rem;
+  text-align: center;
+  background: var(--secondary-color); /* Use secondary color for empty card */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
+}
+input[type="text"] {
+  width: 20%;
+  padding: 10px 15px;
+  margin-bottom: 20px; /* Space below the input */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 25px; /* Rounded corners */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+  font-size: 16px; /* Font size */
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .admin-container {
-    padding: 15px;
+input[type="text"]:focus {
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
+  outline: none; /* Remove default outline */
+}
+
+select {
+  width: 20%; /* Full width */
+  padding: 10px 15px; /* Padding for comfort */
+  margin-bottom: 20px; /* Space below the dropdown */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 25px; /* Rounded corners */
+  background-color: #fff; /* White background */
+  font-size: 16px; /* Font size */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Style for dropdown on focus */
+select:focus {
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
+  outline: none; /* Remove default outline */
+}
+
+/* Optional: Add a custom style for the options */
+select option {
+  padding: 10px; /* Padding for options */
+  background-color: #fff; /* White background for options */
+}
+
+/* Optional: Hover effect for options (not all browsers support this) */
+select:hover {
+  border-color: #007bff; /* Change border color on hover */
+}
+@media (max-width: 600px) {
+  .card {
+    flex: 1 1 100%; /* Full width on mobile */
   }
 
-  h2 {
-    font-size: 1.5em;
+  .card-body {
+    padding: 0.5rem 0;
+  }
+  input[type="text"] {
+    width: 50%;
+  }
+  select {
+    width: 70%; /* Full width */
+
   }
 }

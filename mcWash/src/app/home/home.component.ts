@@ -1,33 +1,36 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
-  template: `<div class="hero">
-  <h1>Welcome to FM Mobile Car Wash <span>Detailing</span></h1>
+  imports: [CommonModule,RouterOutlet, RouterLink, RouterLinkActive],
+  template: `
+  <div class="home-container">
+
+  
+  <div class="hero">
+  <h1>Welcome to FM Mobile Car Wash <span style="color: var(--primary-color);">Detailing</span></h1>
   <p>Convenient car cleaning at your doorstep.</p>
-  <a routerLink="/booking" class="cta-button">Book Now</a>
+  <a  routerLink="/booking" routerLinkActive="active"  class="cta-button">Book Now</a>
 </div>
 
 <section class="services">
   <h2>Our Services</h2>
   <div class="service-list">
     <div class="service-item">
-      <img src="assets/icons/exterior-wash.png" alt="Exterior Wash" />
+      <img src="assets/exteriourWash.jpg" alt="Exterior Wash" />
       <h3>Exterior Wash</h3>
       <p>Thorough cleaning of your car's exterior.</p>
     </div>
     <div class="service-item">
-      <img src="assets/icons/interior-cleaning.png" alt="Interior Cleaning" />
+      <img src="assets/interiourWash.jpg" alt="Interior Cleaning" />
       <h3>Interior Cleaning</h3>
       <p>Deep cleaning of seats, carpets, and surfaces.</p>
     </div>
     <div class="service-item">
-      <img src="assets/icons/detailing.png" alt="Detailing" />
+      <img src="assets/detailingWash.jpg" alt="Detailing" />
       <h3>Detailing</h3>
       <p>Comprehensive detailing for a showroom shine.</p>
     </div>
@@ -217,6 +220,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     <button type="submit">Send Message</button>
   </form>
 </section>
+</div>
 `,
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

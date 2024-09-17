@@ -2,18 +2,30 @@
 
 body {
   margin: 0;
+  
+}
 
+.home-container{
+  background-image: url('../../assets/metal.jpg');
 }
 
 .hero {
-  background-color: var(--primary-color);
-  color: #ffffff;
+  background-color: var(--primary2-color);
+  color: #1C1C1C;
   text-align: center;
   padding: 60px 20px;
-  background-image: url('/src/assets/car.png'); /* Add background image */
   background-size: cover;
   background-position: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bolder;
+  margin-top: 2%;
 }
+
+h1{
+  font-weight:1000;
+}
+
+
 
 .cta-button {
   background-color: var(--fith-color);
@@ -22,6 +34,11 @@ body {
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: medium;
+  position: relative;
+  top: 10px;
 }
 
 .cta-button:hover {
@@ -33,43 +50,59 @@ body {
   padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 30px;
+  color: #FFFFFF;  
+}
+
+p{
+  font-weight: bold;
 }
 
 .service-list, .feature-list, .pricing-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  font-family: 'Poppins', sans-serif;
 }
 
 .service-item, .feature-item, .pricing-item {
-  background-color: #9bb0bf;
+  background-color: var(--primary2-color);
   color: var(--fith-color);
   padding: 20px;
   margin: 10px;
-  border-radius: 5px;
+  border-radius: 10px; /* Rounded corners */
   flex: 1 1 calc(25% - 20px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
   transition: transform 0.3s;
+  font-family: 'Poppins', sans-serif;
 }
 
-.service-item:hover, .feature-item:hover {
+
+
+.service-item:hover::before, .feature-item:hover::before {
   transform: translateY(-5px);
+  
 }
 
 .service-item img {
-  width: 50px; /* Adjust icon size */
-  margin-bottom: 10px;
+  width: 100%; /* Full width */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 150px; /* Maximum height */
+  object-fit: cover; /* Maintain aspect ratio, cropping if necessary */
+  border-radius: 10px; /* Rounded corners for image */
 }
+
 
 .testimonial-list {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .testimonial-item {
@@ -80,10 +113,12 @@ h2 {
   border-radius: 5px;
   max-width: 600px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .faq-item {
   margin: 15px 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Gallery Section Styles */
@@ -174,6 +209,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
 }
 
 button:hover {
@@ -258,14 +294,25 @@ footer {
   outline: none;
 }
 
+h2, h3, h1{
+  font-family: 'Poppins', sans-serif;
+  font-weight: bolder;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
+  .hero{
+    background-image: url('../../assets/bg.jpeg');
+  }
   .service-item, .feature-item, .pricing-item {
     flex: 1 1 calc(50% - 20px);
   }
 }
 
 @media (max-width: 480px) {
+  .hero{
+    background-image: url('../../assets/bg.jpeg');
+  }
   .service-item, .feature-item, .pricing-item {
     flex: 1 1 100%;
   }

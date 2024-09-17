@@ -299,7 +299,7 @@ export class BookingComponent {
     '19:00 - 20:30',
   ];
   bookedTimes: { [time: string]: string[] } = {}; // Object to hold booked time slots and phone numbers
-  bookedDate: string[] = [];
+  bookedDate:any;
   today: string = '';
   availableTimes: string[] = []; // Array to hold available times
   userBookingError: string | null = null; // Add this in your class
@@ -353,8 +353,19 @@ export class BookingComponent {
     this.orderService.getPosts().subscribe({
       next: (response: any) => {
         this.order = response;
-        this.bookedDate = this.order.map((date: any) => date.date);
-
+        
+        // Track unique dates
+        this.bookedDate = {};
+        this.order.forEach((slot: any) => {
+          if (!this.bookedDate[slot.date]) {
+            this.bookedDate[slot.date] = [];
+          }
+          if (!this.bookedDate[slot.date].includes(slot.time)) {
+            // Ensure uniqueness for time slots
+            this.bookedDate[slot.date].push(slot.time);
+          }
+        });
+  
         // Track unique phone numbers for each time slot
         this.bookedTimes = {};
         this.order.forEach((slot: any) => {
@@ -372,23 +383,24 @@ export class BookingComponent {
       },
     });
   }
-
+  
   onSubmit(event: Event) {
-    console.log(event);
     event.preventDefault();
     if (this.bookingForm.valid) {
-      const { name, phone, service, address, email, date, time, carWashPackage, cleaningPackage  } =
+      const { name, phone, service, address, email, date, time, carWashPackage, cleaningPackage } =
         this.bookingForm.value;
+        
       // Check if the user has already booked this time slot
-      if (this.bookedTimes[time]?.includes(phone)) {
+      if (this.bookedTimes[time]?.includes(phone) && this.bookedDate[date]?.includes(time)) {
         this.userBookingError =
           'You have already booked this time slot. Please choose a different time.';
         return; // Prevent further processing
       } else {
         this.userBookingError = null; // Clear previous error
       }
+  
       this.orderService.addPost(this.bookingForm.value);
-
+  
       this.orderService
         .getUserByPhoneNumber(this.phoneNumber)
         .pipe(take(1))
@@ -397,7 +409,6 @@ export class BookingComponent {
             const userId = user[0].id;
             user[0].order.push('Order' + date + '_' + time);
             user[0].discount = user[0].order.length;
-            console.log(user[0]);
             this.orderService.updateDocument(userId, user[0]);
           } else {
             const user: any = {
@@ -412,13 +423,14 @@ export class BookingComponent {
             this.orderService.addUser(user);
           }
         });
+  
       this.orderService.setBookingSubmitted(true); // Set the booking as submitted
       this.router.navigate(['/payment'], {
-        queryParams: { name, phone, service , carWashPackage, cleaningPackage },
+        queryParams: { name, phone, service, carWashPackage, cleaningPackage },
       });
     }
   }
-
+  
   checkUser() {
     this.orderService
       .getPostsByPhoneNumber(this.phoneNumber)
@@ -429,7 +441,6 @@ export class BookingComponent {
             name: userData.name,
             email: userData.email,
             address: userData.address,
-            service: userData.service,
             phone: userData.phone,
           });
         } else {
@@ -439,16 +450,18 @@ export class BookingComponent {
         this.cdr.detectChanges();
       });
   }
-
+  
   checkIfSlotBooked() {
     const selectedDate = this.bookingForm.get('date')?.value;
     const selectedTime = this.bookingForm.get('time')?.value;
-
+  
     if (selectedDate && selectedTime) {
+      console.log(this.bookedDate)
       const isFullyBooked =
-        this.bookedDate.includes(selectedDate) &&
+        this.bookedDate[selectedDate]?.includes(selectedTime).length >=3 &&
         this.bookedTimes[selectedTime]?.length >= 3; // Check if 3 unique phone numbers have booked
-
+  
+      console.log(isFullyBooked);
       if (isFullyBooked) {
         this.bookingForm.get('time')?.setErrors({ booked: true });
       } else {
@@ -456,7 +469,6 @@ export class BookingComponent {
       }
     }
   }
-
   updateAvailableTimes() {
     const selectedDate = this.bookingForm.get('date')?.value;
     const currentDate = new Date();
