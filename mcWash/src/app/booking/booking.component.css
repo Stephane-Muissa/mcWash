@@ -36,6 +36,7 @@ label {
   margin-bottom: 5px;
   font-weight: bold;
   color: #e0e0e0; /* Lighter color for labels */
+  font-family: 'Poppins', sans-serif;
 }
 
 label i {
@@ -53,12 +54,12 @@ select {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow to inputs */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
-  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent input background */
-  color: #ffffff; /* White text for inputs */
+  background-color: rgba(255, 255, 255, 0.8); /* Light background for better contrast */
+  color: #333; /* Dark text for better readability */
 }
 
 input:focus,
@@ -66,6 +67,11 @@ select:focus {
   border-color: #0dc6eb;
   outline: none;
   box-shadow: 0 0 5px rgba(13, 198, 235, 0.5); /* Shadow on focus */
+}
+
+/* Adjust dropdown options for better visibility */
+option {
+  padding: 10px; /* Add padding to option items */
 }
 
 .submit-button {
@@ -102,6 +108,7 @@ small {
   background-color: rgba(231, 243, 254, 0.9); /* Light blue background with transparency */
   color: #31708f; /* Darker blue text */
   border: 1px solid #b3d4ea; /* Light blue border */
+  font-family: 'Poppins', sans-serif;
 }
 
 .alert strong {
@@ -122,6 +129,7 @@ small {
   cursor: pointer; /* Pointer cursor on hover */
   font-size: 16px; /* Font size */
   transition: background-color 0.3s; /* Smooth transition */
+  font-family: 'Poppins', sans-serif;
 }
 
 .check-button:hover {

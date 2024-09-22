@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import emailjs from '@emailjs/browser'
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,18 @@ export class EmailService {
       from_name: from_name,
       message: message,
       addresse: email,
+      });
+  }
+
+  placeOrder(service:string, date:string, heure:string, total:any, address:string, email:string){
+    emailjs.init('dak2scKm_QnTJcZC-')
+    emailjs.send("service_8cps2by","template_7cy36up",{
+      service: service,
+      date: date,
+      heure: heure,
+      total: total,
+      addresse: address,
+      reply_to: email,
       });
   }
 

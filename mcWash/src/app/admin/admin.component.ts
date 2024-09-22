@@ -31,7 +31,7 @@ import { Observable, tap } from 'rxjs';
         <div><span class="label">Name:</span> {{ order.name }}</div>
         <div><span class="label">Email:</span> {{ order.email }}</div>
         <div><span class="label">Service:</span> {{ order.service }}</div>
-        <div><span class="label">Package:</span> {{ order.package | currency}}</div>
+        <div><span class="label">Package:</span> {{ order.package }}</div>
         <div><span class="label">Date:</span> {{ order.date }}</div>
         <div><span class="label">Time:</span> {{ order.time }}</div>
         <div><span class="label">Status:</span> {{ order.status }}</div>

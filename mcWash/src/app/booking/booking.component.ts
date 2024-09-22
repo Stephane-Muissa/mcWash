@@ -12,10 +12,12 @@ import {
   Validators,
   AbstractControl,
   ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms'; // Import FormsModule
 import { Router } from '@angular/router';
 import { Observable, of, take } from 'rxjs';
 import { OrderService } from '../servicesFolder/order.service';
+import { EmailService } from '../servicesFolder/email.service';
 
 @Component({
   selector: 'app-booking',
@@ -149,83 +151,83 @@ import { OrderService } from '../servicesFolder/order.service';
         </div>
 
         <div class="form-group">
-          <label for="service">
-            <i class="fas fa-cogs"></i> Select Service:
-          </label>
-          <select
-            id="service"
-            formControlName="service"
-            (change)="onServiceChange($event)"
-          >
-            <option value="" disabled selected>Select your service</option>
-            <option value="carWash">Car Wash Service</option>
-            <option value="homeCleaning">Home Cleaning Service</option>
-          </select>
-          <div
-            *ngIf="
-              bookingForm.get('service')?.invalid &&
-              (bookingForm.get('service')?.touched ||
-                bookingForm.get('service')?.dirty)
-            "
-          >
-            <small *ngIf="bookingForm.get('service')?.errors?.['required']">Service selection is required.</small>
-          </div>
-        </div>
+  <label for="service">
+    <i class="fas fa-cogs"></i> Select Service:
+  </label>
+  <select
+    id="service"
+    formControlName="service"
+    (change)="onServiceChange($event)"
+  >
+    <option value="" disabled selected>Select your service</option>
+    <option value="carWash">Car Wash Service</option>
+    <option value="homeCleaning">Home Cleaning Service</option>
+  </select>
+  <div *ngIf="bookingForm.get('service')?.invalid && (bookingForm.get('service')?.touched || bookingForm.get('service')?.dirty)">
+    <small *ngIf="bookingForm.get('service')?.errors?.['required']">Service selection is required.</small>
+  </div>
+</div>
 
-        <div *ngIf="selectedService === 'carWash'">
-          <div class="form-group">
-            <label for="carWashPackage">
-              <i class="fas fa-car"></i> Select Car Wash Package:
-            </label>
-            <select id="carWashPackage" formControlName="carWashPackage">
-              <option value="" disabled selected>Select a package</option>
-              <option value="30">Basic Car Wash</option>
-              <option value="50">Standard Car Wash</option>
-              <option value="80">Premium Car Wash</option>
-            </select>
-            <div
-              *ngIf="
-                bookingForm.get('carWashPackage')?.invalid &&
-                (bookingForm.get('carWashPackage')?.touched ||
-                  bookingForm.get('carWashPackage')?.dirty)
-              "
-            >
-              <small
-                *ngIf="bookingForm.get('carWashPackage')?.errors?.['required']"
-                >Package selection is required.</small
-              >
-            </div>
-          </div>
-        </div>
+<!-- Car Wash Service Selection -->
+<div *ngIf="selectedService === 'carWash'">
+  <div class="form-group">
+    <label for="carWashPackage">
+      <i class="fas fa-car"></i> Select Car Wash Package:
+    </label>
+    <select id="carWashPackage" formControlName="carWashPackage">
+      <option value="" disabled selected>Select a package</option>
+      <option value="base">Lavage de Base Express Intérieur/Extérieur - $50</option>
+      <option value="standard">Lavage Standard Intérieur/Extérieur Complet - $120</option>
+      <option value="premium">Lavage Premium Intérieur/Extérieur Complet - $200</option>
+    </select>
+    <div *ngIf="bookingForm.get('carWashPackage')?.invalid && (bookingForm.get('carWashPackage')?.touched || bookingForm.get('carWashPackage')?.dirty)">
+      <small *ngIf="bookingForm.get('carWashPackage')?.errors?.['required']">Package selection is required.</small>
+    </div>
+  </div>
 
-        <div *ngIf="selectedService === 'homeCleaning'">
-          <div class="form-group">
-            <label for="cleaningPackage">
-              <i class="fas fa-broom"></i> Select Cleaning Package:
-            </label>
-            <select id="cleaningPackage" formControlName="cleaningPackage">
-              <option value="" disabled selected>Select a package</option>
-              <option value="100">Basic Cleaning Package</option>
-              <option value="150">Standard Cleaning Package</option>
-              <option value="250">Premium Cleaning Package</option>
-              <option value="300">
-                Post-Construction Cleaning Package
-              </option>
-            </select>
-            <div
-              *ngIf="
-                bookingForm.get('cleaningPackage')?.invalid &&
-                (bookingForm.get('cleaningPackage')?.touched ||
-                  bookingForm.get('cleaningPackage')?.dirty)
-              "
-            >
-              <small
-                *ngIf="bookingForm.get('cleaningPackage')?.errors?.['required']"
-                >Package selection is required.</small
-              >
-            </div>
-          </div>
-        </div>
+  <!-- Extras for Car Wash -->
+  <div class="form-group">
+    <label><i class="fas fa-plus-circle"></i> Select Extras:</label>
+    <div>
+      <label><input type="checkbox" formControlName="traitementCeramique"> Traitement Ceramique ($150)</label><br>
+      <!-- <label><input type="checkbox" formControlName="interiorDetailing"> Interior Detailing ($30)</label><br>
+      <label><input type="checkbox" formControlName="engineCleaning"> Engine Cleaning ($40)</label> -->
+    </div>
+  </div>
+</div>
+
+<!-- Home Cleaning Service Selection -->
+<div *ngIf="selectedService === 'homeCleaning'">
+  <div class="form-group">
+    <label for="cleaningPackage">
+      <i class="fas fa-broom"></i> Select Cleaning Package:
+    </label>
+    <select id="cleaningPackage" formControlName="cleaningPackage" (change)="onCleaningPackageChange($event)">
+      <option value="" disabled selected>Select a package</option>
+      <option value="nettoyageCanape">Nettoyage Canapé / Fauteuil / Matelas</option>
+      <option value="nettoyageMaison">Nettoyage de Maison</option>
+      <option value="postConstruction">Forfait de Nettoyage Post-Construction</option>
+    </select>
+    <div *ngIf="bookingForm.get('cleaningPackage')?.invalid && (bookingForm.get('cleaningPackage')?.touched || bookingForm.get('cleaningPackage')?.dirty)">
+      <small *ngIf="bookingForm.get('cleaningPackage')?.errors?.['required']">Package selection is required.</small>
+    </div>
+  </div>
+
+  <!-- Extras for Home Cleaning -->
+  <div class="form-group">
+    <label><i class="fas fa-plus-circle"></i> Select Home Cleaning Extras:</label>
+    <div>
+      <label><input type="checkbox" formControlName="c2" (change)="checkExtras()"> Canapé 2 à 4 places ($50)</label><br>
+      <label><input type="checkbox" formControlName="c5" (change)="checkExtras()"> Canapé 5 à 7 places ($65)</label><br>
+      <label><input type="checkbox" formControlName="c8" (change)="checkExtras()"> Canapé 8 places et plus ($80)</label><br>
+      <label><input type="checkbox" formControlName="fauteuil" (change)="checkExtras()"> Fauteuil ($20)</label><br>
+      <label><input type="checkbox" formControlName="matelat" (change)="checkExtras()"> Matelat ($35)</label>
+    </div>
+    <div *ngIf="bookingForm.errors?.['atLeastOneExtraRequired']">
+      <small style="color: red;">At least one extra must be selected if you choose Nettoyage Canapé.</small>
+    </div>
+  </div>
+</div>
 
         <div class="form-group">
           <label for="date">
@@ -299,15 +301,18 @@ export class BookingComponent {
     '19:00 - 20:30',
   ];
   bookedTimes: { [time: string]: string[] } = {}; // Object to hold booked time slots and phone numbers
-  bookedDate:any;
+  bookedDate: any;
   today: string = '';
   availableTimes: string[] = []; // Array to hold available times
   userBookingError: string | null = null; // Add this in your class
+
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private orderService: OrderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private emailService:EmailService,
   ) {
     this.bookingForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -319,7 +324,16 @@ export class BookingComponent {
       time: ['', [Validators.required]],
       carWashPackage: [{ value: '', disabled: true }, Validators.required],
       cleaningPackage: [{ value: '', disabled: true }, Validators.required],
+      traitementCeramique: [{ value: false, disabled: true }], // Car wash extra, initially disabled
+      // interiorDetailing: [{ value: false, disabled: true }], // Car wash extra, initially disabled
+      // engineCleaning: [{ value: false, disabled: true }], // Car wash extra, initially disabled
+      c2: [false],
+      c5: [false],
+      c8: [false],
+      fauteuil: [false],
+      matelat: [false],
     });
+
     this.bookingForm.get('date')?.valueChanges.subscribe(() => {
       this.updateAvailableTimes();
       this.checkIfSlotBooked();
@@ -335,20 +349,71 @@ export class BookingComponent {
     const date = new Date();
     this.today = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
   }
+
   onServiceChange(event: Event) {
     const selectedValue = (event.target as HTMLSelectElement).value;
     this.selectedService = selectedValue;
+
     // Enable/disable packages based on selected service
     if (selectedValue === 'carWash') {
       this.bookingForm.get('carWashPackage')?.enable();
       this.bookingForm.get('cleaningPackage')?.disable();
       this.bookingForm.get('cleaningPackage')?.reset();
+      this.toggleHomeCleaningExtras(false);
+      this.toggleCarWashExtras(true)
     } else if (selectedValue === 'homeCleaning') {
       this.bookingForm.get('cleaningPackage')?.enable();
       this.bookingForm.get('carWashPackage')?.disable();
       this.bookingForm.get('carWashPackage')?.reset();
+      this.toggleHomeCleaningExtras(true);
+      this.toggleCarWashExtras(false)
     }
   }
+
+  toggleCarWashExtras(enable: boolean) {
+    if (enable) {
+      this.bookingForm.get('traitementCeramique')?.enable();
+      // this.bookingForm.get('interiorDetailing')?.enable();
+      // this.bookingForm.get('engineCleaning')?.enable();
+    } else {
+      this.bookingForm.get('traitementCeramique')?.disable();
+      // this.bookingForm.get('interiorDetailing')?.disable();
+      // this.bookingForm.get('engineCleaning')?.disable();
+    }
+  }
+
+  toggleHomeCleaningExtras(enable: boolean) {
+    this.bookingForm.get('c2')?.enable({ onlySelf: enable });
+    this.bookingForm.get('c5')?.enable({ onlySelf: enable });
+    this.bookingForm.get('c8')?.enable({ onlySelf: enable });
+    this.bookingForm.get('fauteuil')?.enable({ onlySelf: enable });
+    this.bookingForm.get('matelat')?.enable({ onlySelf: enable });
+  }
+  onCleaningPackageChange(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+
+    // Check extras only if home cleaning package is selected
+    if (selectedValue === 'nettoyageCanape') {
+      this.checkExtras();
+    } else {
+      this.bookingForm.setErrors(null);
+    }
+  }
+
+  // Check if at least one extra is selected
+  checkExtras() {
+    const extrasSelected = this.bookingForm.value.c2 || this.bookingForm.value.c5 ||
+                          this.bookingForm.value.c8 || this.bookingForm.value.fauteuil ||
+                          this.bookingForm.value.matelat;
+
+    if (!extrasSelected) {
+      this.bookingForm.setErrors({ atLeastOneExtraRequired: true });
+    } else {
+      this.bookingForm.setErrors(null);
+    }
+  }
+
+
   getBookedTimes() {
     this.orderService.getPosts().subscribe({
       next: (response: any) => {
@@ -383,13 +448,13 @@ export class BookingComponent {
       },
     });
   }
-  
+
   onSubmit(event: Event) {
     event.preventDefault();
     if (this.bookingForm.valid) {
-      const { name, phone, service, address, email, date, time, carWashPackage, cleaningPackage } =
+      const { name, phone, service, address, email, date, time, carWashPackage, cleaningPackage, traitementCeramique, c2,c5,c8,fauteuil,matelat } =
         this.bookingForm.value;
-        
+
       // Check if the user has already booked this time slot
       if (this.bookedTimes[time]?.includes(phone) && this.bookedDate[date]?.includes(time)) {
         this.userBookingError =
@@ -398,9 +463,9 @@ export class BookingComponent {
       } else {
         this.userBookingError = null; // Clear previous error
       }
-  
+
       this.orderService.addPost(this.bookingForm.value);
-  
+
       this.orderService
         .getUserByPhoneNumber(this.phoneNumber)
         .pipe(take(1))
@@ -423,14 +488,17 @@ export class BookingComponent {
             this.orderService.addUser(user);
           }
         });
-  
+      
       this.orderService.setBookingSubmitted(true); // Set the booking as submitted
+    //  this.emailService.placeOrder(service,date,time,0,address,email)
+      let to = '+243910889542'
+      let smsBody = 'FM Mobile Car Wash Detailing';
       this.router.navigate(['/payment'], {
-        queryParams: { name, phone, service, carWashPackage, cleaningPackage },
+        queryParams: { name, phone, service, carWashPackage, cleaningPackage, traitementCeramique, c2, c5, c8, fauteuil, matelat },
       });
     }
   }
-  
+
   checkUser() {
     this.orderService
       .getPostsByPhoneNumber(this.phoneNumber)
@@ -450,18 +518,16 @@ export class BookingComponent {
         this.cdr.detectChanges();
       });
   }
-  
+
   checkIfSlotBooked() {
     const selectedDate = this.bookingForm.get('date')?.value;
     const selectedTime = this.bookingForm.get('time')?.value;
-  
+
     if (selectedDate && selectedTime) {
-      console.log(this.bookedDate)
       const isFullyBooked =
-        this.bookedDate[selectedDate]?.includes(selectedTime).length >=3 &&
+        this.bookedDate[selectedDate]?.includes(selectedTime).length >= 3 &&
         this.bookedTimes[selectedTime]?.length >= 3; // Check if 3 unique phone numbers have booked
-  
-      console.log(isFullyBooked);
+
       if (isFullyBooked) {
         this.bookingForm.get('time')?.setErrors({ booked: true });
       } else {
@@ -469,6 +535,7 @@ export class BookingComponent {
       }
     }
   }
+
   updateAvailableTimes() {
     const selectedDate = this.bookingForm.get('date')?.value;
     const currentDate = new Date();
@@ -502,7 +569,8 @@ export class BookingComponent {
     const isServiceSelected = this.bookingForm.get('service')?.value;
     const isCarWashSelected = this.selectedService === 'carWash' && this.bookingForm.get('carWashPackage')?.value;
     const isHomeCleaningSelected = this.selectedService === 'homeCleaning' && this.bookingForm.get('cleaningPackage')?.value;
+    const isExtrasValid = this.selectedService !== 'homeCleaning' || this.bookingForm.valid && this.bookingForm.errors?.['atLeastOneExtraRequired'] === null;
 
-    return this.bookingForm.invalid || !isServiceSelected || (!isCarWashSelected && !isHomeCleaningSelected);
+    return this.bookingForm.invalid || !isServiceSelected || (!isCarWashSelected && !isHomeCleaningSelected) || (!isHomeCleaningSelected && !isExtrasValid);
   }
 }

@@ -6,11 +6,23 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms ease-in', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('500ms ease-out', style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
   template: `
     <div class="home-container">
       <div class="hero">
@@ -27,7 +39,7 @@ import {
         >
       </div>
 
-      <section class="services">
+      <section class="services" @fadeIn>
         <h2>Nos Services</h2>
         <div class="service-list">
           <div class="service-item">
@@ -67,6 +79,17 @@ import {
           </div>
         </div>
       </section>
+      <div class="floating-buttons">
+      <a href="https://www.instagram.com" target="_blank" class="social-button instagram">
+          <img src="assets/instagram.png" alt="Instagram" />
+        </a>
+        <a href="https://www.facebook.com" target="_blank" class="social-button facebook">
+          <img src="assets/facebook.png" alt="Facebook" />
+        </a>
+        <a href="https://www.tiktok.com" target="_blank" class="social-button tiktok">
+          <img src="assets/tik.png" alt="TikTok" />
+        </a>
+  </div>
 
       <div class="section-divider"></div>
 
@@ -198,7 +221,7 @@ import {
     
     <div class="pricing-item">
       <div class="pricing-block">
-        <h3>Nettoyage Canapé / Fauteuil / Matelas</h3>
+        <h3>Nettoyage Canapé / Fauteuil / Matelat</h3>
         <div class="package-prices">
           <p class="price"><strong>Canapé 2 à 4 places:</strong> <span>$50</span></p>
           <p class="price"><strong>Canapé 5 à 7 places:</strong> <span>$65</span></p>

@@ -417,6 +417,51 @@ h2, h3, h1 {
   font-family: 'Poppins', sans-serif;
   font-weight: bolder;
 }
+/* Floating buttons style */
+.floating-buttons {
+  position: fixed;
+  bottom: 60%;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  
+}
+
+.social-button {
+  background-color: #3b589800; /* Default for Facebook */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.social-button.instagram {
+  background-color: #e1306b00; /* Instagram color */
+}
+
+.social-button.tiktok {
+  background-color: #69c9d000; /* TikTok color */
+}
+
+.social-button:hover {
+  background-color: #555;
+  
+}
+
+/* Animation for scrolling */
+.scroll-animation {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.scroll-animation.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {

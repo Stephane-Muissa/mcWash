@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { PaymentService } from '../servicesFolder/payment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '../servicesFolder/order.service';
@@ -8,11 +8,13 @@ import { take } from 'rxjs';
 import * as _ from 'lodash';
 import { ThankYouDialogComponent } from '../thankYouDialog/thankYouDialog.component';
 import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-payment',
   standalone: true,
   imports: [
-    CommonModule, FormsModule
+    CommonModule,
+    FormsModule
   ],
   template: `
   <div class="payment-container">
@@ -27,7 +29,7 @@ import { MatDialog } from '@angular/material/dialog';
             Cash
           </label>
           <label>
-            <input type="radio" name="paymentMethod" value="creditCard" (change)="selectPaymentMethod('creditCard')" >
+            <input type="radio" name="paymentMethod" value="creditCard" (change)="selectPaymentMethod('creditCard')">
             Credit Card
           </label>
         </div>
@@ -55,7 +57,7 @@ import { MatDialog } from '@angular/material/dialog';
 
       <div class="form-group" *ngIf="selectedPaymentMethod === 'cash'">
         <label>Amount:</label>
-        <input type="number" id="amount" [value]="totalAmount" disabled>
+        <input type="text" id="amount" [value]="isEstimate ? 'sur devis' : totalAmount" disabled>
       </div>
 
       <div class="form-group">
@@ -65,7 +67,7 @@ import { MatDialog } from '@angular/material/dialog';
 
       <div class="form-group total-display">
         <label>Total Amount:</label>
-        <div class="total-amount">{{totalAmount | currency:'USD'}}</div>
+        <div class="total-amount">{{isEstimate ? 'sur devis' : (totalAmount | currency:'USD')}}</div>
       </div>
 
       <button type="submit" class="submit-button">
@@ -79,31 +81,73 @@ import { MatDialog } from '@angular/material/dialog';
 export class PaymentComponent {
   name: string = '';
   phone: string = '';
-  originalAmount: number = 0; // Example original amount
+  originalAmount: number = 0;
   discountAmount: number = 0;
   totalAmount: number = 0;
-  selectedPaymentMethod = 'Cash'; // Default selection
-  paymentResponse: any;
+  selectedPaymentMethod = 'Cash';
+  isEstimate = false;
 
-  constructor(private paymentService: PaymentService, private route: ActivatedRoute, private orderService: OrderService, private dialog: MatDialog,private router: Router ) {}
+  // Prices for car wash packages and additional services
+  private carWashPrices:any = {
+    base: 50,
+    standard: 120,
+    premium: 200
+  };
+
+  private additionalPrices = {
+    c2: 50,
+    c5: 65,
+    c8: 80,
+    fauteuil: 20,
+    matelat: 35,
+    traitementCeramique: 150,
+  };
+
+  constructor(
+    private paymentService: PaymentService,
+    private route: ActivatedRoute,
+    private orderService: OrderService,
+    private dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      if (params['cleaningPackage']) {
-        this.originalAmount = Number(params['cleaningPackage']);
-      } else {
-        this.originalAmount = Number(params['carWashPackage']);
-      }
       this.name = params['name'];
       this.phone = params['phone'];
+      this.originalAmount = this.calculateOriginalAmount(params);
+      this.totalAmount = this.originalAmount; // Initialize total amount
+      this.isEstimate = this.checkIfEstimate(params['cleaningPackage']); // Check if it's an estimate
     });
-    this.totalAmount = this.originalAmount;
+  }
+
+  private calculateOriginalAmount(params: any): number {
+    let total = 0;
+
+    // Determine the car wash package price
+    const carWashPackage = params['carWashPackage'];
+    if (carWashPackage) {
+      total += this.carWashPrices[carWashPackage] || 0;
+    }
+
+    // Add additional services based on boolean values
+    if (params['traitementCeramique'] === 'true') total += this.additionalPrices.traitementCeramique;
+    if (params['c2'] === 'true') total += this.additionalPrices.c2;
+    if (params['c5'] === 'true') total += this.additionalPrices.c5;
+    if (params['c8'] === 'true') total += this.additionalPrices.c8;
+    if (params['fauteuil'] === 'true') total += this.additionalPrices.fauteuil;
+    if (params['matelat'] === 'true') total += this.additionalPrices.matelat;
+
+    return total;
+  }
+
+  private checkIfEstimate(cleaningPackage: string): boolean {
+    return cleaningPackage === 'nettoyageMaison' || cleaningPackage === 'postConstruction';
   }
 
   applyDiscount(event: Event) {
     const discountCode = (event.target as HTMLInputElement).value;
 
-    // Simple discount logic
     if (discountCode === 'SAVE10') {
       this.discountAmount = 10; // Apply a $10 discount
     } else {
@@ -124,35 +168,33 @@ export class PaymentComponent {
       .pipe(take(1))
       .subscribe((users) => {
         if (users.length > 0) {
-          // Sort users by orderTime in descending order
           const mostRecentUser = _.orderBy(users, ['orderTime'], ['desc'])[0];
           const obj = {
             name: this.name,
-            phone:this.phone,
-            status: this.selectedPaymentMethod === 'Cash'? 'Cash':'',
-            selectedPayment:this.selectedPaymentMethod,
-            orderId:mostRecentUser.id,
+            phone: this.phone,
+            status: this.selectedPaymentMethod === 'Cash' ? 'Cash' : '',
+            selectedPayment: this.selectedPaymentMethod,
+            orderId: mostRecentUser.id,
             amount: this.originalAmount,
-            discount:this.discountAmount,
-            totalAmount: this.totalAmount,
-            date:mostRecentUser.date,
+            discount: this.discountAmount,
+            totalAmount: this.isEstimate ? 'sur devis' : this.totalAmount,
+            date: mostRecentUser.date,
             paymentTime: new Date()
-          }
-           this.paymentService.addPost(obj)
-          console.log(mostRecentUser);
+          };
+          this.paymentService.addPost(obj);
           this.openThankYouDialog();
-          // Use mostRecentUser as needed
         } 
       });
   }
+
   openThankYouDialog() {
     const dialogRef = this.dialog.open(ThankYouDialogComponent, {
       width: '600px',
-      panelClass: 'centered-dialog' // Add this line
+      panelClass: 'centered-dialog'
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['/']); // Redirect to home after dialog is closed
+      this.router.navigate(['/']);
     });
   }
 }
