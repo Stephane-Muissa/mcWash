@@ -1,25 +1,43 @@
+.whole-contact-container {
+  background-image: url('../../assets/metal.jpg');
+  /* background-size: cover;
+  background-position: center; */
+}
+
 .about-container {
   max-width: 800px;
+  min-height: 100vh;
   margin: 50px auto;
   padding: 20px;
   text-align: center;
   font-family: 'Poppins', sans-serif;
- 
+  /* background-image: url('../../assets/metal.jpg'); */
+  background-size: cover;
+  background-position: center;
+  color: #ffffff; /* Set text color to white for better contrast */
 }
 
 h2 {
   margin-bottom: 40px;
-  color: #0dc6eb;
+  color: #0dc6eb; /* Bright color for headings */
 }
 
 section {
   margin-bottom: 30px;
   text-align: left;
+  background: rgba(0, 0, 0, 0.7); /* Dark background for sections */
+  padding: 15px; /* Added padding for sections */
+  border-radius: 5px; /* Rounded corners */
 }
 
 h3 {
   margin-bottom: 10px;
-  color: #333;
+  color: #0dc6eb; /* Bright color for subheadings */
+}
+
+p {
+  margin: 10px 0;
+  color: #e0e0e0; /* Lighter text for paragraphs */
 }
 
 .timeline {
@@ -33,19 +51,21 @@ h3 {
 
 .timeline-content {
   padding: 10px 20px;
-  background: #f9f9f9;
+  background: rgba(255, 255, 255, 0.1); /* Light background for timeline content */
   border-radius: 5px;
   position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Darker shadow for better visibility */
 }
 
 .timeline-content h4 {
   margin: 0;
-  color: #0dc6eb;
+  color: #0dc6eb; /* Bright color for timeline headers */
 }
 
 ul {
   list-style-type: none;
   padding: 0;
+  color: #e0e0e0; /* Lighter text for list items */
 }
 
 .team-grid {
@@ -55,29 +75,30 @@ ul {
 }
 
 .team-member {
-  background-color: #f9f9f9;
+  background-color: rgba(255, 255, 255, 0.1); /* Light background for team members */
   border-radius: 8px;
   padding: 15px;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .team-image {
   width: 100%;
-  height: 150px;
+  height: auto; /* Allow height to adjust based on width for responsiveness */
+  max-height: 150px; /* Set a maximum height */
   object-fit: cover;
   border-radius: 50%;
 }
 
 .team-bio {
   font-size: 0.9em;
-  color: #555;
+  color: #e0e0e0; /* Lighter text for team bios */
   margin-top: 5px;
 }
 
 .call-to-action {
   margin-top: 40px;
-  background-color: #0dc6eb;
+  background-color: #0dc6eb; /* Bright background for call to action */
   color: white;
   padding: 20px;
   border-radius: 5px;
@@ -88,9 +109,11 @@ ul {
   font-weight: bold;
   text-decoration: underline;
 }
-h2, h3, h1{
+
+h2, h3, h1 {
   font-family: 'Poppins', sans-serif;
 }
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .about-container {
@@ -99,5 +122,13 @@ h2, h3, h1{
 
   h2 {
     font-size: 1.5em;
+  }
+
+  .team-member {
+    padding: 10px;
+  }
+
+  .team-image {
+    max-height: 220px; /* Reduce max height for mobile */
   }
 }

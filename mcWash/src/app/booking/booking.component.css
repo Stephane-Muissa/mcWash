@@ -4,26 +4,26 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
 }
+
 .booking-container {
   max-width: 600px;
   min-height: 100vh;
   margin: 50px auto;
   padding: 40px 20px;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white for better contrast */
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Darker shadow for depth */
   position: relative;
   overflow: hidden;
-  /* background-image: url('assets/images/booking-bg.jpg');  */
+  background-image: url('../../assets/metal.jpg');
   background-size: cover;
   background-position: center;
-  font-family: 'Poppins', sans-serif;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #0dc6eb;
+  color: #0dc6eb; /* Bright color for headings */
 }
 
 .form-group {
@@ -35,9 +35,8 @@ label {
   align-items: center;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #333;
+  color: #e0e0e0; /* Lighter color for labels */
 }
-
 
 label i {
   margin-right: 8px;
@@ -58,6 +57,8 @@ select {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent input background */
+  color: #ffffff; /* White text for inputs */
 }
 
 input:focus,
@@ -77,11 +78,10 @@ select:focus {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   font-size: 18px;
-  font-family: 'Poppins', sans-serif;
 }
 
 .submit-button:hover {
-  background-color: #000000;
+  background-color: #000000; /* Dark background on hover */
   transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
@@ -91,7 +91,7 @@ select:focus {
   cursor: not-allowed;
 }
 
-small{
+small {
   color: red;
 }
 
@@ -99,7 +99,7 @@ small{
   padding: 15px;
   margin: 20px 0;
   border-radius: 5px;
-  background-color: #e7f3fe; /* Light blue background */
+  background-color: rgba(231, 243, 254, 0.9); /* Light blue background with transparency */
   color: #31708f; /* Darker blue text */
   border: 1px solid #b3d4ea; /* Light blue border */
 }
@@ -114,7 +114,7 @@ small{
 }
 
 .check-button {
-  background-color: var(--primary-color); /* Blue background */
+  background-color: #0dc6eb; /* Blue background */
   color: white; /* White text */
   padding: 10px 15px; /* Padding for the button */
   border: none; /* Remove default border */
@@ -122,11 +122,10 @@ small{
   cursor: pointer; /* Pointer cursor on hover */
   font-size: 16px; /* Font size */
   transition: background-color 0.3s; /* Smooth transition */
-  font-family: 'Poppins', sans-serif;
 }
 
 .check-button:hover {
-  background-color: var(--primary2-color); /* Darker blue on hover */
+  background-color: #000000; /* Darker on hover */
 }
 
 .check-button:disabled {
@@ -134,9 +133,11 @@ small{
   color: #666;
   cursor: not-allowed;
 }
-h2, h3, h1{
+
+h2, h3, h1 {
   font-family: 'Poppins', sans-serif;
 }
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .booking-container {

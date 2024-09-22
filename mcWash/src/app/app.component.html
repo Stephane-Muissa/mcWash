@@ -1,23 +1,39 @@
-<nav class="navbar">
-  <div class="navbar-container">
-    <a routerLink="/admin" class="navbar-logo">
-      <img src="assets/logo.png" alt="FM Mobile Car Wash" class="navbar-logo-img" /></a>
-    <div class="navbar-toggle" (click)="toggleNavbar()">☰</div>
-    <div class="navbar-links" [class.active]="isNavOpen">
-      <a routerLink="/" routerLinkActive="active" (click)="closeNavbar()" >Home</a>
-      <a routerLink="/services" routerLinkActive="active" (click)="closeNavbar()">Services</a>
-      <a routerLink="/booking" routerLinkActive="active" (click)="closeNavbar()">Booking</a>
-      <a routerLink="/contact" routerLinkActive="active" (click)="closeNavbar()">Contact</a>
-      <a routerLink="/about" routerLinkActive="active" (click)="closeNavbar()">About</a>
+<div class="wrapper">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a routerLink="/admin" class="navbar-logo">
+        <img src="assets/logo.png" alt="Lavage de voiture mobile FM" class="navbar-logo-img" />
+      </a>
+      
+      <div class="navbar-links">
+        <a routerLink="/" routerLinkActive="active">Accueil</a>
+        <!-- <a routerLink="/services" routerLinkActive="active">Services</a> -->
+        <a routerLink="/booking" routerLinkActive="active">Réservation</a>
+        <a routerLink="/contact" routerLinkActive="active">Contact</a>
+        <a routerLink="/about" routerLinkActive="active">À propos</a>
+      </div>
+      
+      <div class="navbar-toggle" (click)="toggleNavbar()">☰</div>
+      
+      <div class="sidebar" [class.active]="isNavOpen">
+        <button class="close-btn" (click)="closeNavbar()">✖</button>
+        <div class="sidebar-links">
+          <a routerLink="/" routerLinkActive="active" (click)="closeNavbar()">Accueil</a>
+          <!-- <a routerLink="/services" routerLinkActive="active" (click)="closeNavbar()">Services</a> -->
+          <a routerLink="/booking" routerLinkActive="active" (click)="closeNavbar()">Réservation</a>
+          <a routerLink="/contact" routerLinkActive="active" (click)="closeNavbar()">Contact</a>
+          <a routerLink="/about" routerLinkActive="active" (click)="closeNavbar()">À propos</a>
+        </div>
+      </div>
     </div>
+  </nav>
+  <router-outlet></router-outlet>
+  <footer>
+    <div class="footer-links">
+      <a href="#">Confidentialité</a>
+      <a href="#">Conditions</a>
+      <a href="#">Contact</a>
+    </div>
+    <p>&copy; 2024 leCodeur. Tous droits réservés.</p>
+  </footer>
   </div>
-</nav>
-<router-outlet></router-outlet>
-<footer>
-  <p>&copy; 2024 LeCodeur. All rights reserved.</p>
-  <div class="footer-links">
-    <a routerLink="/about">About Us</a>
-    <a routerLink="/contact">Contact</a>
-    <a routerLink="/privacy">Privacy Policy</a>
-  </div>
-</footer>

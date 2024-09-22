@@ -1,72 +1,108 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   template: `
-  <div class="home-container">
+    <div class="home-container">
+      <div class="hero">
+        <h1>
+          Bienvenue chez FM Mobile Car Wash
+          <span style="color:var(--primary-color)">Detailing</span>
+        </h1>
+        <p>
+          Nettoyage de voiture pratique à votre porte, ainsi que des services de
+          nettoyage pour maisons, canapés et après construction.
+        </p>
+        <a routerLink="/booking" routerLinkActive="active" class="cta-button"
+          >Réservez Maintenant</a
+        >
+      </div>
 
-  
-  <div class="hero">
-  <h1>Welcome to FM Mobile Car Wash <span style="color: var(--primary-color);">Detailing</span></h1>
-  <p>Convenient car cleaning at your doorstep.</p>
-  <a  routerLink="/booking" routerLinkActive="active"  class="cta-button">Book Now</a>
-</div>
+      <section class="services">
+        <h2>Nos Services</h2>
+        <div class="service-list">
+          <div class="service-item">
+            <img src="assets/exteriourWash.jpg" alt="Lavage Extérieur" />
+            <h3>Lavage Extérieur</h3>
+            <p>Nettoyage approfondi de l'extérieur de votre voiture.</p>
+          </div>
+          <div class="service-item">
+            <img src="assets/interiourWash.jpg" alt="Nettoyage Intérieur" />
+            <h3>Nettoyage Intérieur</h3>
+            <p>
+              Nettoyage en profondeur des sièges, des tapis et des surfaces.
+            </p>
+          </div>
+          <div class="service-item">
+            <img src="assets/waxing.jpg" alt="Cirage" />
+            <h3>Cirage</h3>
+            <p>Protégez votre peinture avec une finition en cire premium.</p>
+          </div>
+          <div class="service-item">
+            <img src="assets/sofacleaning.jpg" alt="Nettoyage de Canapé" />
+            <h3>Nettoyage de Canapé</h3>
+            <p>Redonnez vie à vos canapés avec un nettoyage professionnel.</p>
+          </div>
+          <div class="service-item">
+            <img src="assets/houseCleaning.jpg" alt="Nettoyage de Maison" />
+            <h3>Nettoyage de Maison</h3>
+            <p>Service de nettoyage complet pour un foyer impeccable.</p>
+          </div>
+          <div class="service-item">
+            <img
+              src="assets/postConstruction.jpg"
+              alt="Nettoyage Post-Construction"
+            />
+            <h3>Nettoyage Post-Construction</h3>
+            <p>Éliminez les débris et la poussière après vos travaux.</p>
+          </div>
+        </div>
+      </section>
 
-<section class="services">
-  <h2>Our Services</h2>
-  <div class="service-list">
-    <div class="service-item">
-      <img src="assets/exteriourWash.jpg" alt="Exterior Wash" />
-      <h3>Exterior Wash</h3>
-      <p>Thorough cleaning of your car's exterior.</p>
-    </div>
-    <div class="service-item">
-      <img src="assets/interiourWash.jpg" alt="Interior Cleaning" />
-      <h3>Interior Cleaning</h3>
-      <p>Deep cleaning of seats, carpets, and surfaces.</p>
-    </div>
-    <div class="service-item">
-      <img src="assets/detailingWash.jpg" alt="Detailing" />
-      <h3>Detailing</h3>
-      <p>Comprehensive detailing for a showroom shine.</p>
-    </div>
-    <div class="service-item">
-      <img src="assets/icons/waxing.png" alt="Waxing" />
-      <h3>Waxing</h3>
-      <p>Protect your paint with a premium wax finish.</p>
-    </div>
-  </div>
-</section>
+      <div class="section-divider"></div>
 
-<div class="section-divider"></div>
+      <section class="features">
+        <h2>Pourquoi Choisir Nos Services ?</h2>
+        <div class="feature-list">
+          <div class="feature-item">
+            <h3>Commodité</h3>
+            <p>
+              Nous venons à vous, vous faisant gagner du temps et des efforts.
+            </p>
+          </div>
+          <div class="feature-item">
+            <h3>Qualité</h3>
+            <p>
+              Notre équipe utilise des produits de première qualité pour des
+              résultats optimaux.
+            </p>
+          </div>
+          <div class="feature-item">
+            <h3>Écologique</h3>
+            <p>
+              Nous utilisons des produits respectueux de l'environnement pour
+              protéger notre planète.
+            </p>
+          </div>
+          <div class="feature-item">
+            <h3>Tarifs Abordables</h3>
+            <p>
+              Des prix compétitifs sans compromettre la qualité de nos services.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<section class="features">
-  <h2>Why Choose Us?</h2>
-  <div class="feature-list">
-    <div class="feature-item">
-      <h3>Convenience</h3>
-      <p>We come to you, saving you time and effort.</p>
-    </div>
-    <div class="feature-item">
-      <h3>Quality</h3>
-      <p>Our team uses top-of-the-line products for the best results.</p>
-    </div>
-    <div class="feature-item">
-      <h3>Eco-Friendly</h3>
-      <p>We use eco-friendly products to protect the environment.</p>
-    </div>
-    <div class="feature-item">
-      <h3>Affordable Pricing</h3>
-      <p>Competitive pricing without compromising quality.</p>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
+      <!-- <div class="section-divider"></div>
 
 <section class="gallery">
   <h2>Our Work</h2>
@@ -79,153 +115,227 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
         <button class="nav-button" (click)="prevImage()">Previous</button>
         <button class="nav-button" (click)="nextImage()">Next</button>
     </div>
-</section>
+</section> -->
 
-<div class="section-divider"></div>
+      <div class="section-divider"></div>
 
-<section class="pricing">
-  <h2>Car Wash Pricing Plans</h2>
+      <section class="pricing">
+  <h2>Plans de Tarification pour le Lavage de Voiture</h2>
   <div class="pricing-list">
     <div class="pricing-item">
-      <h3>Basic Package</h3>
-      <p><strong>Price:</strong> $30</p>
-      <p>A quick and efficient exterior wash combined with a thorough interior vacuuming.</p>
-      <ul>
-        <li>Exterior wash</li>
-        <li>Interior vacuum</li>
-      </ul>
+      <div class="pricing-block">
+        <h3>Lavage de Base Express Intérieur/Extérieur</h3>
+        <p class="price"><strong>Prix:</strong> <span>$50</span></p>
+        <p>
+          Un lavage extérieur rapide et efficace combiné à un aspirateur intérieur complet.
+        </p>
+        <div class="features">
+          <div class="pricing-feature"><i class="fas fa-check"></i> Aspiration de l'habitacle et du coffre</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Dépoussiérage des plastiques</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Prélavage (mousse active)</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Lavage à la main</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Nettoyage jantes (face extérieure)</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Rinçage et séchage du véhicule</div>
+        </div>
+      </div>
     </div>
     <div class="pricing-item">
-      <h3>Standard Package</h3>
-      <p><strong>Price:</strong> $50</p>
-      <p>Includes all Basic Package services plus a detailed interior cleaning and exterior detailing.</p>
-      <ul>
-        <li>All Basic Package services</li>
-        <li>Interior cleaning (seats, carpets, surfaces)</li>
-        <li>Detailing (waxing and polishing)</li>
-      </ul>
+      <div class="pricing-block">
+        <h3>Lavage Standard Intérieur/Extérieur Complet</h3>
+        <p class="price"><strong>Prix:</strong> <span>$120</span></p>
+        <p>
+          Inclus tous les services du forfait de base plus un nettoyage intérieur détaillé et un entretien extérieur.
+        </p>
+        <div class="features">
+          <div class="pricing-feature"><i class="fas fa-check"></i> Prélavage (mousse active)</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Lavage à la main</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Nettoyage jantes (face extérieure)</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Rinçage et séchage du véhicule</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Aspiration de l'habitacle et du coffre</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Dépoussiérage des plastiques (au pinceau)</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Shampoing sièges, tissus, tapis et moquette</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Dépoussiérage et nettoyage grille d'aération</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Nettoyage surface vitre</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Nettoyage du compartiment moteur</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Rinçage et séchage</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Traitement des parties en plastiques (dressing)</div>
+        </div>
+      </div>
     </div>
     <div class="pricing-item">
-      <h3>Premium Package</h3>
-      <p><strong>Price:</strong> $80</p>
-      <p>Comprehensive cleaning that includes everything from the Standard Package, plus waxing and tire shine.</p>
-      <ul>
-        <li>All Standard Package services</li>
-        <li>Waxing for paint protection</li>
-        <li>Tire shine for a polished look</li>
-      </ul>
+      <div class="pricing-block">
+        <h3>Lavage Premium Intérieur/Extérieur Complet</h3>
+        <p class="price"><strong>Prix:</strong> <span>$200</span></p>
+        <p>
+          Nettoyage complet incluant tout du forfait standard, plus cirage et éclat des pneus.
+        </p>
+        <div class="features">
+          <div class="pricing-feature"><i class="fas fa-check"></i> Prélavage (mousse active)</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Lavage à la main</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Nettoyage jantes (face extérieure)</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Rinçage et séchage du véhicule</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Aspiration de l'habitacle et du coffre</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Dépoussiérage des plastiques (au pinceau)</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Shampoing sièges, tissus, tapis et moquette</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Nettoyage surface vitre</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Nettoyage du compartiment moteur</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Traitement et décontamination de la carrosserie</div>
+          <div class="pricing-feature"><i class="fas fa-check"></i> Polissage de la carrosserie</div>
+        </div>
+        <div class="attention-section">
+          <strong>Option : </strong> Traitement céramique = supplément de $150
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+      <div class="section-divider"></div>
 
-<section class="pricing">
-  <h2>Home Cleaning Packages</h2>
+      <section class="pricing">
+  <h2>Forfaits de Nettoyage à Domicile</h2>
   <div class="pricing-list">
+    
     <div class="pricing-item">
-      <h3>Basic Cleaning Package</h3>
-      <p><strong>Price:</strong> $100</p>
-      <p>Regular maintenance cleaning to keep your home fresh and tidy.</p>
-      <ul>
-        <li>Dusting all surfaces</li>
-        <li>Vacuuming and mopping floors</li>
-        <li>Kitchen cleaning (counters, sinks)</li>
-        <li>Bathroom cleaning (toilets, sinks, mirrors)</li>
-      </ul>
+      <div class="pricing-block">
+        <h3>Nettoyage Canapé / Fauteuil / Matelas</h3>
+        <div class="package-prices">
+          <p class="price"><strong>Canapé 2 à 4 places:</strong> <span>$50</span></p>
+          <p class="price"><strong>Canapé 5 à 7 places:</strong> <span>$65</span></p>
+          <p class="price"><strong>Canapé 8 places et plus:</strong> <span>$80</span></p>
+          <p class="price"><strong>Fauteuil:</strong> <span>$20</span></p>
+          <p class="price"><strong>Matelas:</strong> <span>$35</span></p>
+        </div>
+        <p>Nettoyage régulier pour garder votre maison fraîche et propre.</p>
+        <ul class="features">
+          <li class="pricing-feature"><i class="fas fa-check"></i> Aspiration</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Désinfection à la vapeur</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Nettoyage à la brosse</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Shampouinage</li>
+        </ul>
+      </div>
     </div>
+    
     <div class="pricing-item">
-      <h3>Standard Cleaning Package</h3>
-      <p><strong>Price:</strong> $150</p>
-      <p>A deeper clean that includes all Basic Package services plus detailed attention to neglected areas.</p>
-      <ul>
-        <li>All Basic Package services</li>
-        <li>Detailed dusting of baseboards and windows</li>
-        <li>Floor cleaning (vacuuming and mopping)</li>
-      </ul>
+      <div class="pricing-block">
+        <h3>Nettoyage de Maison</h3>
+        <p class="price"><strong>Prix: </strong> <span>Sur Devis</span></p>
+        <p>Service de nettoyage complet adapté à vos besoins spécifiques :</p>
+        <ul class="features">
+          <li class="pricing-feature"><i class="fas fa-check"></i> Nettoyage de toutes les surfaces</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Nettoyage approfondi des salles de bains (joints inclus)</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Nettoyage intérieur des appareils (four, micro-ondes)</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Entretien des tissus d'ameublement</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Options personnalisées selon vos besoins</li>
+        </ul>
+      </div>
     </div>
+    
     <div class="pricing-item">
-      <h3>Premium Cleaning Package</h3>
-      <p><strong>Price:</strong> $250</p>
-      <p>Extensive cleaning service for homes needing thorough detailing.</p>
-      <ul>
-        <li>All Standard Package services</li>
-        <li>Deep cleaning of bathrooms (including grout)</li>
-        <li>Cleaning inside of appliances (oven, microwave)</li>
-        <li>Sofa cleaning for upholstery care</li>
-      </ul>
+      <div class="pricing-block">
+        <h3>Forfait de Nettoyage Post-Construction</h3>
+        <p class="price"><strong>Prix: </strong> <span>Sur Devis</span></p>
+        <p>Nettoyage spécialisé après rénovation ou construction, incluant :</p>
+        <ul class="features">
+          <li class="pricing-feature"><i class="fas fa-check"></i> Enlèvement des débris et déchets</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Dépoussiérage complet (murs, plafonds, surfaces)</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Nettoyage des fenêtres (intérieur et extérieur)</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Nettoyage approfondi des sols (aspiration et lavage)</li>
+          <li class="pricing-feature"><i class="fas fa-check"></i> Finitions pour un résultat impeccable</li>
+        </ul>
+      </div>
     </div>
-    <div class="pricing-item">
-      <h3>Post-Construction Cleaning Package</h3>
-      <p><strong>Price:</strong> From $300</p>
-      <p>Specialized cleaning for homes after renovations or construction.</p>
-      <ul>
-        <li>Debris removal from the site</li>
-        <li>Dusting all surfaces, including walls and ceilings</li>
-        <li>Window cleaning (inside and outside)</li>
-        <li>Thorough floor cleaning (vacuuming and mopping)</li>
-      </ul>
-    </div>
+    
   </div>
 </section>
 
-<div class="section-divider"></div>
+      <div class="section-divider"></div>
 
-<section class="testimonials">
-  <h2>What Our Customers Say</h2>
+      <section class="testimonials">
+  <h2>Avis de Nos Clients</h2>
   <div class="testimonial-list">
+    
     <div class="testimonial-item">
-      <p>"Fantastic service! My car looks brand new!"</p>
-      <p>- Jane Doe</p>
+      <p class="testimonial-text">"Service fantastique ! Ma voiture a l'air toute neuve !"</p>
+      <p class="client-name">— Jane Mwamba</p>
     </div>
+    
     <div class="testimonial-item">
-      <p>"The convenience of having a car wash at home is unbeatable."</p>
-      <p>- John Smith</p>
+      <p class="testimonial-text">"La commodité d'un lavage de voiture à domicile est imbattable."</p>
+      <p class="client-name">— John Kanda</p>
     </div>
+    
+    <div class="testimonial-item">
+      <p class="testimonial-text">"L'équipe a fait un excellent travail. Je suis très satisfait."</p>
+      <p class="client-name">— Léonard Kasongo</p>
+    </div>
+    
+    <div class="testimonial-item">
+      <p class="testimonial-text">"Je ne peux pas croire à quel point ma voiture brille après le lavage !"</p>
+      <p class="client-name">— Amina Tshiyombo</p>
+    </div>
+    
+    <div class="testimonial-item">
+      <p class="testimonial-text">"Service rapide, efficace et très professionnel. Je recommande !"</p>
+      <p class="client-name">— Chantal Mbuyi</p>
+    </div>
+    
   </div>
 </section>
 
-<div class="section-divider"></div>
+      <div class="section-divider"></div>
 
-<section class="faq">
-  <h2>Frequently Asked Questions</h2>
+      <section class="faq">
+  <h2>Questions Fréquemment Posées</h2>
+  
   <div class="faq-item">
-    <h3>How do I book a service?</h3>
-    <p>You can book a service through our online booking system.</p>
+    <h3>Comment réserver un service ?</h3>
+    <p>Vous pouvez réserver un service via notre système de réservation en ligne.</p>
   </div>
+  
   <div class="faq-item">
-    <h3>What areas do you service?</h3>
-    <p>We service various areas. Check our website for details.</p>
+    <h3>Quels sont les zones desservies ?</h3>
+    <p>Nous desservons plusieurs zones. Vérifiez notre site web pour les détails.</p>
   </div>
+  
   <div class="faq-item">
-    <h3>Are your products safe for my car?</h3>
-    <p>Yes, we use only safe and eco-friendly products.</p>
+    <h3>Vos produits sont-ils sans danger pour ma voiture ?</h3>
+    <p>Oui, nous n'utilisons que des produits sûrs et écologiques.</p>
   </div>
+  
+  <div class="faq-item">
+    <h3>Quels types de services proposez-vous ?</h3>
+    <p>Nous proposons des services de nettoyage intérieur et extérieur, ainsi que des traitements spéciaux.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Combien de temps dure un service de nettoyage ?</h3>
+    <p>La durée dépend du type de service, mais la plupart prennent entre 1 et 3 heures.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Puis-je annuler ou reprogrammer ma réservation ?</h3>
+    <p>Oui, vous pouvez annuler ou reprogrammer votre réservation jusqu'à 24 heures avant le service.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Proposez-vous des forfaits pour les services récurrents ?</h3>
+    <p>Oui, nous avons des forfaits avantageux pour les services récurrents. Contactez-nous pour plus d'informations.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Comment puis-je payer ?</h3>
+    <p>Nous acceptons plusieurs méthodes de paiement, y compris les cartes de crédit et les paiements en ligne.</p>
+  </div>
+  
 </section>
 
-<div class="section-divider"></div>
-
-<section class="contact">
-  <h2>Contact Us</h2>
-  <form>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    
-    <label for="message">Message:</label>
-    <textarea id="message" name="message" required></textarea>
-    
-    <button type="submit">Send Message</button>
-  </form>
-</section>
-</div>
-`,
+    </div>
+  `,
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent { 
+export class HomeComponent {
   currentImageIndex = 0;
   images = [
     'assets/car.png',
@@ -233,17 +343,18 @@ export class HomeComponent {
     'assets/car.png',
     'assets/car.png',
     'assets/car.png',
-    'assets/car.png'
-];
+    'assets/car.png',
+  ];
 
   showImage(index: number) {
-      this.currentImageIndex = index;
+    this.currentImageIndex = index;
   }
   nextImage() {
     this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-}
+  }
 
-prevImage() {
-    this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
-}
+  prevImage() {
+    this.currentImageIndex =
+      (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+  }
 }

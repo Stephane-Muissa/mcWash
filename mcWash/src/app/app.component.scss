@@ -1,52 +1,57 @@
-body {
-    margin: 0;
-
+html, body {
+    height: 100%; /* Ensure the body and html cover full height */
+    margin: 0; /* Remove default margins */
 }
-
+.wrapper {
+    min-height: 100%; /* Ensure wrapper takes full height */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+}
 .navbar {
     position: fixed;
-    height: 35px; /* Fixed height for the navbar */
+    height: 60px; /* Default height for larger screens */
     top: 0;
     left: 0;
-    width: 98%;
+    width: 100%;
     background-color: var(--fith-color);
     color: #ffffff;
-    padding: 15px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     font-family: 'Poppins', sans-serif;
+    border-radius: 15px; /* Rounded borders */
+    padding: 0 20px; /* Padding for left and right */
+    box-sizing: border-box; /* Include padding in total width */
 }
 
 .navbar-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Space between logo and other items */
     align-items: center;
-    max-width: 1200px;
-    /* Optional: limit max width */
-    margin: 0 auto;
-    /* Center the navbar */
+    max-width: 1200px; /* Limit max width */
+    margin: 0 auto; /* Center the navbar */
     width: 100%;
-    position: relative;
-    top: -30px;
-    /* Ensure it takes full width */
+    height: 100%; /* Ensure it takes full height */
 }
 
 .navbar-logo {
-    
-  flex-shrink: 0; /* Prevent the logo from shrinking */
-    font-size: 1.5em;
-    color: var(--primary-color);
-    text-decoration: none;
+    position: relative;
+    top: 10px;
+    flex-shrink: 0; /* Prevent the logo from shrinking */
+}
+
+.navbar-logo-img {
+    width: 100px; /* Adjusted width for smaller screens */
+    height: auto; /* Maintain aspect ratio */
 }
 
 .navbar-links {
-    display: flex;
-    gap: 20px;
+    display: flex; /* Default to flex for larger screens */
+    gap: 20px; /* Space between links */
 }
 
 .navbar-links a {
     color: var(--secondary-color);
-    font-size: large;
+    font-size: large; /* Use a relative font size */
     font-weight: bolder;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -59,94 +64,111 @@ body {
 
 /* Show toggle button for mobile */
 .navbar-toggle {
-    display: none;
+    display: none; /* Hidden by default */
+    font-size: 1.5em; /* Increase icon size */
 }
 
-.navbar-logo-img {
-    width: 120px; /* Set your desired width */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Ensure it behaves as a block element */
-    margin: auto; /* Center the logo if needed */
-  }
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Hidden off-screen */
+    height: 100%;
+    width: 250px; /* Width of the sidebar */
+    background-color: var(--fith-color);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease; /* Smooth transition for opening */
+    z-index: 999; /* Ensure it is above other content */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+}
 
-  /* Footer Styles */
+.sidebar.active {
+    right: 0; /* Show the sidebar */
+}
+
+.close-btn {
+    background: none; /* No background */
+    border: none; /* No border */
+    color: var(--secondary-color); /* Text color */
+    font-size: 2em; /* Size of the close icon */
+    align-self: flex-end; /* Align to the right */
+    cursor: pointer; /* Pointer cursor */
+    margin: 10px; /* Margin around the button */
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column; /* Stack links vertically */
+    padding: 20px; /* Padding inside the sidebar */
+    flex-grow: 1; /* Allow links to take available space */
+}
+
+.sidebar-links a {
+    color: var(--secondary-color);
+    margin: 10px 0; /* Space between links */
+    text-decoration: none;
+    font-size: large; /* Uniform font size */
+}
+
+/* Footer Styles */
 footer {
     background-color: #21282e;
     color: #ffffff;
     text-align: center;
-    padding: 20px 0;
+    padding: 20px 0; /* Adjust padding as needed */
     font-family: 'Poppins', sans-serif;
-  }
-  
-  .footer-links {
+    margin: 0; /* Ensure no margin */
+}
+
+.footer-links {
     margin-top: 10px;
-  }
-  
-  .footer-links a {
+}
+
+.footer-links a {
     color: #0dc6eb;
     margin: 0 10px;
     text-decoration: none;
-  }
-  
-  .footer-links a:hover {
+}
+
+.footer-links a:hover {
     text-decoration: underline;
-  }
-/* Responsive Styles */
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
+    .navbar {
+        height: 50px; /* Reduced height for mobile */
+        padding: 5px 10px; /* Reduced padding */
+    }
+
+    .navbar-container {
+        flex-direction: row; /* Keep items in a row */
+        align-items: center; /* Center items */
+        width: 100%; /* Full width for mobile */
+    }
+
     .navbar-links {
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        /* Adjust based on navbar height */
-        left: 0;
-        /* Align to left */
-        width: 100%;
-        background: var(--fith-color);
-        transition: max-height 0.3s ease;
-        max-height: 0;
-        /* Hide links initially */
-        overflow: hidden;
-        /* Hide overflow */
-    }
-
-    .navbar-links.active {
-        max-height: 300px;
-        /* Maximum height when active */
-    }
-
-    .navbar-links a {
-        padding: 10px 20px;
-        display: block;
-        width: 100%;
-        text-align: left;
+        display: none; /* Hide links by default */
+        flex-direction: column; /* Stack links vertically */
+        width: 100%; /* Full width */
+        max-height: 0; /* Initial height for transition */
+        overflow: hidden; /* Prevent overflow */
     }
 
     .navbar-toggle {
-        display: block;
-        /* Show toggle button */
-        cursor: pointer;
-        color: var(--primary-color);
-        font-size: 1.5em;
-        /* Increase font size */
-        margin-right: 10%;
+        display: block; /* Show toggle icon on small screens */
+        margin-left: auto; /* Align toggle to the right */
     }
 
-    .navbar-logo-img {
-        width: 100px; /* Set your desired width */
-        height: auto; /* Maintain aspect ratio */
-        display: block; /* Ensure it behaves as a block element */
-
-      }
-
-      .navbar-container {
-        position: relative;
-        top: -20px;
-        /* Ensure it takes full width */
+    .navbar-links.active {
+        display: flex; /* Show links when active */
+        max-height: 300px; /* Adjust as needed for max height */
     }
 
-    .navbar {
-        height: 35px; /* Fixed height for the navbar */
+    .navbar-links a {
+        margin: 5px 0; /* Vertical spacing for links */
+        margin-left: 0; /* Remove left margin */
+        text-align: center; /* Center align links */
     }
-
 }
-

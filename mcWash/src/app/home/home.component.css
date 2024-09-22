@@ -2,16 +2,15 @@
 
 body {
   margin: 0;
-  
 }
 
-.home-container{
+.home-container {
   background-image: url('../../assets/metal.jpg');
 }
 
 .hero {
-  background-color: var(--primary2-color);
-  color: #1C1C1C;
+  background-color: rgba(13, 198, 235, 0.666); /* Slightly transparent for depth */
+  color: #ffffff; /* White text for better contrast */
   text-align: center;
   padding: 60px 20px;
   background-size: cover;
@@ -21,11 +20,10 @@ body {
   margin-top: 2%;
 }
 
-h1{
-  font-weight:1000;
+h1 {
+  font-weight: 1000;
+  color: #ffffff; /* White for better contrast */
 }
-
-
 
 .cta-button {
   background-color: var(--fith-color);
@@ -46,21 +44,24 @@ h1{
   transform: scale(1.05);
 }
 
-.services, .features, .pricing, .testimonials, .faq, .contact {
+.services, .features,.testimonials, .faq, .contact, .pricing {
   padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
   font-family: 'Poppins', sans-serif;
+  color: #ffffff; /* Set default text color to white */
+ border-radius: 5px;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #FFFFFF;  
+  color: #ffffff; /* White for headings */
 }
 
-p{
+p {
   font-weight: bold;
+  color: #e0e0e0; /* Lighter color for paragraphs */
 }
 
 .service-list, .feature-list, .pricing-list {
@@ -68,25 +69,27 @@ p{
   flex-wrap: wrap;
   justify-content: space-around;
   font-family: 'Poppins', sans-serif;
+  padding: 20px; /* Added padding for better spacing */
+  background: rgba(0, 0, 0, 0.7); /* Dark background for sections */
+  border-radius: 5px;
 }
 
-.service-item, .feature-item, .pricing-item {
-  background-color: var(--primary2-color);
-  color: var(--fith-color);
+.service-item, .feature-item{
+  background-color: rgba(13, 198, 235, 0.1); /* Semi-transparent for contrast */
+  color: var(--primary-color); /* Darker text for better visibility */
   padding: 20px;
-  margin: 10px;
+  margin: 15px; /* Increased margin for better spacing */
   border-radius: 10px; /* Rounded corners */
-  flex: 1 1 calc(25% - 20px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  transition: transform 0.3s;
-  font-family: 'Poppins', sans-serif;
+  flex: 1 1 calc(30% - 30px); /* Adjusted for better responsiveness */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Softer shadow for depth */
+  transition: transform 0.3s, box-shadow 0.3s; /* Added transition for shadow */
+  text-align: center; /* Centered text */
+  position: relative; /* For hover effect */
 }
 
-
-
-.service-item:hover::before, .feature-item:hover::before {
-  transform: translateY(-5px);
-  
+.service-item:hover, .feature-item:hover{
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 .service-item img {
@@ -97,28 +100,161 @@ p{
   border-radius: 10px; /* Rounded corners for image */
 }
 
-
-.testimonial-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Poppins', sans-serif;
+.service-item h3 {
+  margin: 15px 0 10px; /* Spacing adjustments */
+  font-size: 1.5em; /* Increased font size for headings */
+  color: var(--primary-color);
 }
+
+.service-item p {
+  font-size: 1em; /* Standardized font size */
+  line-height: 1.5; /* Improved readability */
+}
+
+
 
 .testimonial-item {
-  background-color: var(--fith-color);
-  color: #ffffff;
+  flex: 1 1 calc(30% - 30px);
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
   padding: 20px;
-  margin: 10px;
-  border-radius: 5px;
-  max-width: 600px;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
+  margin: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  font-size: 1.1em; /* Slightly larger font size for better readability */
 }
 
+.testimonial-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-text {
+  margin-bottom: 10px; /* Space between quote and name */
+  line-height: 1.5; /* Increased line height for readability */
+  color: var(--fith-color);
+}
+
+.client-name {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #0dc6eb; /* Color for client names */
+  font-size: 1.1em; /* Keep client name slightly larger */
+}
+
+.client-name {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #0dc6eb; /* Color for client names */
+}
+
+
+
+
 .faq-item {
+  background-color: rgba(255, 255, 255, 0.9);
   margin: 15px 0;
-  font-family: 'Poppins', sans-serif;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item h3 {
+  font-size: 1.5em; /* Size of the question */
+  color: #0dc6eb; /* Distinct color for questions */
+}
+
+.faq-item p {
+  font-size: 1.1em; /* Slightly larger font size for answers */
+  line-height: 1.6; /* Increased line height for readability */
+  margin-top: 10px; /* Spacing between question and answer */
+  color: var(--fith-color);
+}
+
+/* Pricing */
+.pricing-block {
+  background-color: rgba(13, 198, 235, 0.5); /* Semi-transparent for contrast */
+  color: var(--primary-color); /* Dark color for visibility */
+  padding: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3); /* Light border for separation */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+  transition: transform 0.3s, box-shadow 0.3s; /* Transition effects */
+  text-align: center; /* Center text */
+}
+
+.pricing-block:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+
+.pricing-item {
+  background-color: rgba(13, 198, 235, 0.5); /* Semi-transparent for contrast */
+  color: var(--primary-color); /* Dark color for visibility */
+  padding: 20px;
+  margin: 15px; /* Increased margin for better spacing */
+  border-radius: 10px; /* Rounded corners */
+  flex: 1 1 calc(30% - 30px); /* Responsive layout */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+  transition: transform 0.3s, box-shadow 0.3s; /* Transition effects */
+  text-align: center; /* Center text */
+}
+
+.pricing-item:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: rgba(13, 198, 235, 0.3); /* Light background for emphasis */
+  border: 1px solid #0dc6eb; /* Border around the price */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.price strong {
+  font-weight: bold; /* Ensure the label is bold */
+}
+
+.price span {
+  margin-left: auto; /* Align price to the right */
+  color: #ffcc00; /* Gold color for prices */
+  font-size: 1.5em; /* Larger font size for prices */
+}
+
+.features {
+  margin-top: 15px; /* Space above features */
+  text-align: left; /* Align text to the left */
+}
+
+.pricing-feature {
+  display: flex; /* Use flexbox for icon and text */
+  align-items: center; /* Center items vertically */
+  margin: 8px 0; /* Space between items */
+  font-size: 1em; /* Standard font size */
+  color: #ffffff; /* Text color */
+}
+
+.pricing-feature i {
+  color: #0dc6eb; /* Icon color */
+  margin-right: 10px; /* Space between icon and text */
+  font-size: 1.2em; /* Slightly larger icon */
+}
+
+.attention-section {
+  margin-top: 15px; /* Space above the attention section */
+  padding: 10px; /* Padding for the section */
+  background-color: rgba(255, 204, 0, 0.2); /* Light background color */
+  border: 1px solid #ffcc00; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  color: #333; /* Text color */
+  text-align: center; /* Center text */
+  font-weight: bold; /* Bold text */
 }
 
 /* Gallery Section Styles */
@@ -133,6 +269,7 @@ p{
 
 .gallery h2 {
   margin-bottom: 30px;
+  color: #ffffff; /* White for gallery heading */
 }
 
 /* Grid Layout for Gallery */
@@ -192,6 +329,7 @@ form {
 
 label {
   margin: 10px 0 5px;
+  color: #e0e0e0; /* Lighter color for labels */
 }
 
 input, textarea {
@@ -199,6 +337,8 @@ input, textarea {
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent input background */
+  color: #ffffff; /* White text for inputs */
 }
 
 button {
@@ -216,27 +356,6 @@ button:hover {
   background-color: var(--fith-color);
 }
 
-/* Footer Styles */
-footer {
-  background-color: #21282e;
-  color: #ffffff;
-  text-align: center;
-  padding: 20px 0;
-}
-
-.footer-links {
-  margin-top: 10px;
-}
-
-.footer-links a {
-  color: #0dc6eb;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
-}
 
 .section-divider {
   height: 2px;
@@ -294,15 +413,15 @@ footer {
   outline: none;
 }
 
-h2, h3, h1{
+h2, h3, h1 {
   font-family: 'Poppins', sans-serif;
   font-weight: bolder;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .hero{
-    background-image: url('../../assets/bg.jpeg');
+  .hero {
+    background-image: url('../../assets/porche_bg.jpg');
   }
   .service-item, .feature-item, .pricing-item {
     flex: 1 1 calc(50% - 20px);
@@ -310,8 +429,8 @@ h2, h3, h1{
 }
 
 @media (max-width: 480px) {
-  .hero{
-    background-image: url('../../assets/bg.jpeg');
+  .hero {
+    background-image: url('../../assets/porche_bg.jpg');
   }
   .service-item, .feature-item, .pricing-item {
     flex: 1 1 100%;

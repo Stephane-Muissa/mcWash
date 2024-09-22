@@ -1,11 +1,15 @@
 .admin-container {
   padding: 1rem;
- /* background-color: var(--fith-color);  */
- font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background-image: url('../../assets/metal.jpg');
+  background-size: cover; /* Ensure the background covers the container */
+  background-position: center; /* Center the background image */
 }
-h1, h2, h3,h4{
+
+h1, h2, h3, h4 {
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
+  color: #ffffff; /* White text for headings */
 }
 
 .card-container {
@@ -15,24 +19,25 @@ h1, h2, h3,h4{
 }
 
 .card {
-  background: var(--primary2-color); /* Use primary2 color */
+  background: rgba(13, 198, 235, 0.9); /* Semi-transparent primary color */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); /* Slightly darker shadow for depth */
   padding: 1rem;
   flex: 1 1 calc(33% - 2rem); /* Responsive flex for PC */
-  transition: transform 0.2s;
-  color: var(--text-color); /* Use text color for card text */
+  transition: transform 0.2s, background 0.2s; /* Smooth background transition */
+  color: #ffffff; /* White text for card content */
 }
 
 .card:hover {
   transform: translateY(-2px);
-  background: var(--primary-color); /* Change background on hover */
+  background: rgba(0, 123, 255, 0.8); /* Change to a darker blue on hover */
 }
 
 .card-header {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  color: #0dc6eb; /* Bright color for card headers */
 }
 
 .card-body {
@@ -42,19 +47,20 @@ h1, h2, h3,h4{
 
 .label {
   font-weight: bold;
-  color: var(--secondary-color); /* Use secondary color for labels */
+  color: #FFD700; /* Gold color for labels */
 }
 
 .empty-card {
   padding: 1rem;
   text-align: center;
-  background: var(--secondary-color); /* Use secondary color for empty card */
+  background: rgba(255, 205, 0, 0.7); /* Semi-transparent yellow for empty card */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: var(--text-color);
+  color: #ffffff; /* White text for better visibility */
 }
-input[type="text"] {
-  width: 20%;
+
+input[type="text"], select {
+  width: 20%; /* Default width for inputs and selects */
   padding: 10px 15px;
   margin-bottom: 20px; /* Space below the input */
   border: 1px solid #ccc; /* Light border */
@@ -62,43 +68,31 @@ input[type="text"] {
   transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
   font-size: 16px; /* Font size */
   font-family: 'Poppins', sans-serif;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  color: #ffffff; /* White text for inputs */
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus, select:focus {
   border-color: #007bff; /* Change border color on focus */
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
   outline: none; /* Remove default outline */
 }
 
 select {
-  width: 20%; /* Full width */
-  padding: 10px 15px; /* Padding for comfort */
-  margin-bottom: 20px; /* Space below the dropdown */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 25px; /* Rounded corners */
-  background-color: #fff; /* White background */
-  font-size: 16px; /* Font size */
-  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
-  font-family: 'Poppins', sans-serif;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background for dropdown */
 }
 
-/* Style for dropdown on focus */
-select:focus {
-  border-color: #007bff; /* Change border color on focus */
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
-  outline: none; /* Remove default outline */
-}
-
-/* Optional: Add a custom style for the options */
 select option {
   padding: 10px; /* Padding for options */
-  background-color: #fff; /* White background for options */
+  background-color: #ffffff; /* White background for options */
+  color: #000; /* Black text for options */
 }
 
 /* Optional: Hover effect for options (not all browsers support this) */
 select:hover {
   border-color: #007bff; /* Change border color on hover */
 }
+
 @media (max-width: 600px) {
   .card {
     flex: 1 1 100%; /* Full width on mobile */
@@ -107,11 +101,8 @@ select:hover {
   .card-body {
     padding: 0.5rem 0;
   }
-  input[type="text"] {
-    width: 50%;
-  }
-  select {
-    width: 70%; /* Full width */
 
+  input[type="text"], select {
+    width: 70%; /* Full width on mobile */
   }
 }
