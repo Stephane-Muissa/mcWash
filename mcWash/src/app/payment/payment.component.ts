@@ -18,63 +18,64 @@ import { MatDialog } from '@angular/material/dialog';
   ],
   template: `
   <div class="payment-container">
-    <h2>Payment Details</h2>
+    <h2>Détails du Paiement</h2>
     <form (ngSubmit)="onSubmit(paymentForm)" #paymentForm="ngForm">
 
       <div class="form-group">
-        <label for="paymentMethod">Choose Payment Method:</label>
+        <label for="paymentMethod">Choisissez le Mode de Paiement :</label>
         <div class="payment-options">
           <label>
             <input type="radio" name="paymentMethod" value="cash" (change)="selectPaymentMethod('cash')" checked>
-            Cash
+            Espèces
           </label>
           <label>
-            <input type="radio" name="paymentMethod" value="creditCard" (change)="selectPaymentMethod('creditCard')">
-            Credit Card
+            <input type="radio" [disabled]="disableCard" name="paymentMethod" value="creditCard" (change)="selectPaymentMethod('creditCard')">
+            Carte de Crédit
           </label>
         </div>
       </div>
 
       <div class="form-group" *ngIf="selectedPaymentMethod === 'creditCard'">
-        <label for="cardName">Name on Card:</label>
+        <label for="cardName">Nom sur la Carte :</label>
         <input type="text" id="cardName" name="cardName" required ngModel>
       </div>
 
       <div class="form-group" *ngIf="selectedPaymentMethod === 'creditCard'">
-        <label for="cardNumber">Card Number:</label>
+        <label for="cardNumber">Numéro de Carte :</label>
         <input type="text" id="cardNumber" name="cardNumber" required ngModel placeholder="1234 5678 9012 3456">
       </div>
 
       <div class="form-group" *ngIf="selectedPaymentMethod === 'creditCard'">
-        <label for="expiryDate">Expiry Date:</label>
+        <label for="expiryDate">Date d'Expiration :</label>
         <input type="month" id="expiryDate" name="expiryDate" required ngModel>
       </div>
 
       <div class="form-group" *ngIf="selectedPaymentMethod === 'creditCard'">
-        <label for="cvv">CVV:</label>
+        <label for="cvv">CVV :</label>
         <input type="text" id="cvv" name="cvv" required ngModel placeholder="123">
       </div>
 
       <div class="form-group" *ngIf="selectedPaymentMethod === 'cash'">
-        <label>Amount:</label>
+        <label>Montant :</label>
         <input type="text" id="amount" [value]="isEstimate ? 'sur devis' : totalAmount" disabled>
       </div>
 
       <div class="form-group">
-        <label for="discount">Discount Code:</label>
-        <input type="text" id="discount" name="discount" (input)="applyDiscount($event)" ngModel placeholder="Enter code (e.g., SAVE10)">
+        <label for="discount">Code de Réduction :</label>
+        <input type="text" id="discount" name="discount" (input)="applyDiscount($event)" ngModel placeholder="Entrez le code (ex. : SAVE10)">
       </div>
 
       <div class="form-group total-display">
-        <label>Total Amount:</label>
+        <label>Montant Total :</label>
         <div class="total-amount">{{isEstimate ? 'sur devis' : (totalAmount | currency:'USD')}}</div>
       </div>
 
       <button type="submit" class="submit-button">
-        {{ selectedPaymentMethod === 'cash' ? 'Complete Order' : 'Complete Payment' }}
+        {{ selectedPaymentMethod === 'cash' ? 'Compléter la Commande' : 'Compléter le Paiement' }}
       </button>
     </form>
-  </div>`,
+</div>
+      `,
   styleUrls: ['./payment.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -86,6 +87,7 @@ export class PaymentComponent {
   totalAmount: number = 0;
   selectedPaymentMethod = 'Cash';
   isEstimate = false;
+  disableCard = true;
 
   // Prices for car wash packages and additional services
   private carWashPrices:any = {

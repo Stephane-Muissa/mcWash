@@ -59,7 +59,7 @@ h1, h2, h3, h4 {
   color: #ffffff; /* White text for better visibility */
 }
 
-input[type="text"], select {
+input[type="text"], input[type="date"], select {
   width: 20%; /* Default width for inputs and selects */
   padding: 10px 15px;
   margin-bottom: 20px; /* Space below the input */
@@ -72,7 +72,7 @@ input[type="text"], select {
   color: #ffffff; /* White text for inputs */
 }
 
-input[type="text"]:focus, select:focus {
+input[type="text"]:focus, input[type="date"]:focus, select:focus {
   border-color: #007bff; /* Change border color on focus */
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
   outline: none; /* Remove default outline */
@@ -93,6 +93,28 @@ select:hover {
   border-color: #007bff; /* Change border color on hover */
 }
 
+button {
+  background-color: #dc3545; /* Bootstrap red color */
+  color: #ffffff; /* White text */
+  border: none; /* Remove default border */
+  border-radius: 25px; /* Rounded corners */
+  padding: 10px 20px; /* Padding */
+  font-size: 16px; /* Font size */
+  font-family: 'Poppins', sans-serif; /* Font style */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+}
+
+button:hover {
+  background-color: #c82333; /* Darker red on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+button:focus {
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); /* Subtle shadow on focus */
+}
+
 @media (max-width: 600px) {
   .card {
     flex: 1 1 100%; /* Full width on mobile */
@@ -102,7 +124,7 @@ select:hover {
     padding: 0.5rem 0;
   }
 
-  input[type="text"], select {
+  input[type="text"], input[type="date"], select {
     width: 70%; /* Full width on mobile */
   }
 }

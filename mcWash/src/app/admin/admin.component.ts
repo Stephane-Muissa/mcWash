@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminService } from '../servicesFolder/admin.service';
 import { Observable, tap } from 'rxjs';
@@ -17,7 +17,8 @@ import { Observable, tap } from 'rxjs';
 
   <section class="order-history">
   <h3>Order History</h3>
-  <input class="search-box" type="text"  [(ngModel)]="orderSearch" placeholder="Search by name" (input)="filterOrders()" />
+  <input class="search-box" type="text" [(ngModel)]="orderSearch" placeholder="Search by name" (input)="filterOrders()" />
+  <input class="search-box" type="date" [(ngModel)]="orderDateSearch" (input)="filterOrders()" />
   <select [(ngModel)]="orderSort" (change)="sortOrders()">
     <option value="asc">Sort by Date (Ascending)</option>
     <option value="desc">Sort by Date (Descending)</option>
@@ -35,6 +36,7 @@ import { Observable, tap } from 'rxjs';
         <div><span class="label">Date:</span> {{ order.date }}</div>
         <div><span class="label">Time:</span> {{ order.time }}</div>
         <div><span class="label">Status:</span> {{ order.status }}</div>
+        <button (click)="deleteOrder(order.id)">Delete</button>
       </div>
     </div>
     <div *ngIf="!filteredOrders.length" class="card empty-card">
@@ -69,9 +71,9 @@ import { Observable, tap } from 'rxjs';
   <p>Page: {{ p2 }}</p>
 </section>
 
-  <section class="user-details">
+<section class="user-details">
   <h3>User Details</h3>
-  <input class="search-box" type="text"  [(ngModel)]="userSearch" placeholder="Search by name" (input)="filterUsers()" />
+  <input class="search-box" type="text" [(ngModel)]="userSearch" placeholder="Search by name" (input)="filterUsers()" />
   <div class="card-container">
     <div class="card" *ngFor="let user of filteredUsers | paginate: { itemsPerPage: 3, currentPage: p3 }">
       <div class="card-header">
@@ -91,16 +93,17 @@ import { Observable, tap } from 'rxjs';
   <p>Page: {{ p3 }}</p>
 </section>
 </div>`,
-  styleUrl: './admin.component.css',
+  styleUrls: ['./admin.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminComponent { 
-  p:number = 1;
-  p2:number = 1;
-  p3:number = 1;
+  p: number = 1;
+  p2: number = 1;
+  p3: number = 1;
 
-  adminService = inject(AdminService)
+  adminService = inject(AdminService);
   orderSearch: string = '';
+  orderDateSearch: string = new Date().toISOString().split('T')[0]; // Set to current date initially
   paymentSearch: string = '';
   userSearch: string = '';
   
@@ -108,7 +111,8 @@ export class AdminComponent {
   filteredPayments: any[] = [];
   filteredUsers: any[] = [];
   
-  orderSort: string = 'asc'; // Default sort order for orders
+  orderSort: string = 'asc';
+
   ngOnInit() {
     this.getOrders();
     this.getPayments();
@@ -118,7 +122,7 @@ export class AdminComponent {
   getOrders() {
     this.adminService.getOrders().pipe(
       tap(data => {
-        this.filteredOrders = data; // Set to all orders initially
+        this.filteredOrders = data;
       })
     ).subscribe();
   }
@@ -126,7 +130,7 @@ export class AdminComponent {
   getPayments() {
     this.adminService.getPayments().pipe(
       tap(data => {
-        this.filteredPayments = data; // Set to all payments initially
+        this.filteredPayments = data;
       })
     ).subscribe();
   }
@@ -134,16 +138,18 @@ export class AdminComponent {
   getUsers() {
     this.adminService.getUsers().pipe(
       tap(data => {
-        this.filteredUsers = data; // Set to all users initially
+        this.filteredUsers = data;
       })
     ).subscribe();
   }
 
   filterOrders() {
     this.getOrders(); // Re-fetch to reset
-    this.filteredOrders = this.filteredOrders.filter(order => 
-      order.name.toLowerCase().includes(this.orderSearch.toLowerCase())
-    );
+    this.filteredOrders = this.filteredOrders.filter(order => {
+      const matchesName = order.name.toLowerCase().includes(this.orderSearch.toLowerCase());
+      const matchesDate = this.orderDateSearch ? order.date === this.orderDateSearch : true;
+      return matchesName && matchesDate;
+    });
   }
 
   sortOrders() {
@@ -151,6 +157,12 @@ export class AdminComponent {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
       return this.orderSort === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
+    });
+  }
+
+  deleteOrder(orderId: string) {
+    this.adminService.deleteOrder(orderId).subscribe(() => {
+      this.filteredOrders = this.filteredOrders.filter(order => order.id !== orderId);
     });
   }
 

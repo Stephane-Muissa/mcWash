@@ -9,12 +9,12 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule, MatButtonModule, MatDialogModule
   ],
-  template: `    <h1 mat-dialog-title>Thank You!</h1>
+  template: ` <h1 mat-dialog-title>Merci !</h1>
   <div mat-dialog-content>
-    <p>Your payment has been successfully processed.</p>
+    <p>Votre paiement a été traité avec succès.</p>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="close()">Close</button>
+    <button mat-button (click)="close()">Fermer</button>
   </div>`,
   styleUrl: './thankYouDialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

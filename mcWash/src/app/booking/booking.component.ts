@@ -24,262 +24,227 @@ import { EmailService } from '../servicesFolder/email.service';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   template: `
-    <div class="booking-container">
-      <h2>Book Your Service</h2>
-      <ng-container *ngIf="!formVisible">
-        <!-- User-Friendly Message -->
-        <div class="alert alert-info">
-          <strong>Welcome!</strong> Please enter your phone number below. We’ll
-          check if you’ve placed an order with us in the past. If you have, your
-          details will be filled in automatically. If not, don’t worry—you can
-          complete the form manually.
-        </div>
+<div class="booking-container">
+  <h2>Réservez Votre Service</h2>
+  <ng-container *ngIf="!formVisible">
+    <!-- Message convivial -->
+    <div class="alert alert-info">
+      <strong>Bienvenue !</strong> Veuillez entrer votre numéro de téléphone ci-dessous. Nous vérifierons si vous avez passé une commande avec nous dans le passé. Si c'est le cas, vos informations seront remplies automatiquement. Sinon, ne vous inquiétez pas, vous pouvez compléter le formulaire manuellement.
+    </div>
 
-        <!-- Phone Number Input -->
-        <div class="form-group">
-          <label for="phone"> <i class="fas fa-phone"></i> Phone: </label>
-          <input
-            type="tel"
-            id="phone"
-            [(ngModel)]="phoneNumber"
-            required
-            pattern="^[0-9]{10}$"
-            #phoneInput="ngModel"
-          />
-          <div
-            *ngIf="
-              phoneInput.invalid && (phoneInput.touched || phoneInput.dirty)
-            "
-          >
-            <small *ngIf="phoneInput.errors?.['required']"
-              >Phone number is required.</small
-            >
-            <small *ngIf="phoneInput.errors?.['pattern']"
-              >Phone number must be 10 digits.</small
-            >
-          </div>
-        </div>
-
-        <!-- Check Button -->
-        <button
-          class="check-button"
-          (click)="checkUser()"
-          [disabled]="phoneInput.invalid"
-        >
-          Check phone number
-        </button>
-      </ng-container>
-
-      <form
-        (ngSubmit)="onSubmit($event)"
-        [formGroup]="bookingForm"
-        *ngIf="formVisible"
+    <!-- Champ de numéro de téléphone -->
+    <div class="form-group">
+      <label for="phone"> <i class="fas fa-phone"></i> Téléphone : </label>
+      <input
+        type="tel"
+        id="phone"
+        [(ngModel)]="phoneNumber"
+        required
+        pattern="^[0-9]{10}$"
+        #phoneInput="ngModel"
+      />
+      <div
+        *ngIf="phoneInput.invalid && (phoneInput.touched || phoneInput.dirty)"
       >
-        <div class="form-group">
-          <label for="name"> <i class="fas fa-user"></i> Name: </label>
-          <input type="text" id="name" formControlName="name" />
-          <div
-            *ngIf="
-              bookingForm.get('name')?.invalid &&
-              (bookingForm.get('name')?.touched ||
-                bookingForm.get('name')?.dirty)
-            "
-          >
-            <small *ngIf="bookingForm.get('name')?.errors?.['required']"
-              >Name is required.</small
-            >
-            <small *ngIf="bookingForm.get('name')?.errors?.['minlength']"
-              >Name must be at least 2 characters long.</small
-            >
-          </div>
-        </div>
+        <small *ngIf="phoneInput.errors?.['required']">Le numéro de téléphone est requis.</small>
+        <small *ngIf="phoneInput.errors?.['pattern']">Le numéro de téléphone doit comporter 10 chiffres.</small>
+      </div>
+    </div>
 
-        <div class="form-group">
-          <label for="email"> <i class="fas fa-envelope"></i> Email: </label>
-          <input type="email" id="email" formControlName="email" />
-          <div
-            *ngIf="
-              bookingForm.get('email')?.invalid &&
-              (bookingForm.get('email')?.touched ||
-                bookingForm.get('email')?.dirty)
-            "
-          >
-            <small *ngIf="bookingForm.get('email')?.errors?.['required']"
-              >Email is required.</small
-            >
-            <small *ngIf="bookingForm.get('email')?.errors?.['email']"
-              >Please enter a valid email address.</small
-            >
-          </div>
-        </div>
+    <!-- Bouton de vérification -->
+    <button
+      class="check-button"
+      (click)="checkUser()"
+      [disabled]="phoneInput.invalid"
+    >
+      Vérifier le numéro de téléphone
+    </button>
+  </ng-container>
 
-        <div class="form-group">
-          <label for="phone"> <i class="fas fa-phone"></i> Phone: </label>
-          <input type="tel" id="phone" formControlName="phone" />
-          <div
-            *ngIf="
-              bookingForm.get('phone')?.invalid &&
-              (bookingForm.get('phone')?.touched ||
-                bookingForm.get('phone')?.dirty)
-            "
-          >
-            <small *ngIf="bookingForm.get('phone')?.errors?.['required']"
-              >Phone number is required.</small
-            >
-            <small *ngIf="bookingForm.get('phone')?.errors?.['pattern']"
-              >Phone number must be 10 digits.</small
-            >
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="address">
-            <i class="fas fa-map-marker-alt"></i> Address:
-          </label>
-          <input type="text" id="address" formControlName="address" />
-          <div
-            *ngIf="
-              bookingForm.get('address')?.invalid &&
-              (bookingForm.get('address')?.touched ||
-                bookingForm.get('address')?.dirty)
-            "
-          >
-            <small *ngIf="bookingForm.get('address')?.errors?.['required']"
-              >Address is required.</small
-            >
-          </div>
-        </div>
-
-        <div class="form-group">
-  <label for="service">
-    <i class="fas fa-cogs"></i> Select Service:
-  </label>
-  <select
-    id="service"
-    formControlName="service"
-    (change)="onServiceChange($event)"
+  <form
+    (ngSubmit)="onSubmit($event)"
+    [formGroup]="bookingForm"
+    *ngIf="formVisible"
   >
-    <option value="" disabled selected>Select your service</option>
-    <option value="carWash">Car Wash Service</option>
-    <option value="homeCleaning">Home Cleaning Service</option>
-  </select>
-  <div *ngIf="bookingForm.get('service')?.invalid && (bookingForm.get('service')?.touched || bookingForm.get('service')?.dirty)">
-    <small *ngIf="bookingForm.get('service')?.errors?.['required']">Service selection is required.</small>
-  </div>
-</div>
-
-<!-- Car Wash Service Selection -->
-<div *ngIf="selectedService === 'carWash'">
-  <div class="form-group">
-    <label for="carWashPackage">
-      <i class="fas fa-car"></i> Select Car Wash Package:
-    </label>
-    <select id="carWashPackage" formControlName="carWashPackage">
-      <option value="" disabled selected>Select a package</option>
-      <option value="base">Lavage de Base Express Intérieur/Extérieur - $50</option>
-      <option value="standard">Lavage Standard Intérieur/Extérieur Complet - $120</option>
-      <option value="premium">Lavage Premium Intérieur/Extérieur Complet - $200</option>
-    </select>
-    <div *ngIf="bookingForm.get('carWashPackage')?.invalid && (bookingForm.get('carWashPackage')?.touched || bookingForm.get('carWashPackage')?.dirty)">
-      <small *ngIf="bookingForm.get('carWashPackage')?.errors?.['required']">Package selection is required.</small>
+    <div class="form-group">
+      <label for="name"> <i class="fas fa-user"></i> Nom : </label>
+      <input type="text" id="name" formControlName="name" />
+      <div
+        *ngIf="
+          bookingForm.get('name')?.invalid &&
+          (bookingForm.get('name')?.touched || bookingForm.get('name')?.dirty)
+        "
+      >
+        <small *ngIf="bookingForm.get('name')?.errors?.['required']">Le nom est requis.</small>
+        <small *ngIf="bookingForm.get('name')?.errors?.['minlength']">Le nom doit contenir au moins 2 caractères.</small>
+      </div>
     </div>
-  </div>
 
-  <!-- Extras for Car Wash -->
-  <div class="form-group">
-    <label><i class="fas fa-plus-circle"></i> Select Extras:</label>
-    <div>
-      <label><input type="checkbox" formControlName="traitementCeramique"> Traitement Ceramique ($150)</label><br>
-      <!-- <label><input type="checkbox" formControlName="interiorDetailing"> Interior Detailing ($30)</label><br>
-      <label><input type="checkbox" formControlName="engineCleaning"> Engine Cleaning ($40)</label> -->
+    <div class="form-group">
+      <label for="email"> <i class="fas fa-envelope"></i> Email : </label>
+      <input type="email" id="email" formControlName="email" />
+      <div
+        *ngIf="
+          bookingForm.get('email')?.invalid &&
+          (bookingForm.get('email')?.touched || bookingForm.get('email')?.dirty)
+        "
+      >
+        <small *ngIf="bookingForm.get('email')?.errors?.['required']">L'email est requis.</small>
+        <small *ngIf="bookingForm.get('email')?.errors?.['email']">Veuillez entrer une adresse email valide.</small>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- Home Cleaning Service Selection -->
-<div *ngIf="selectedService === 'homeCleaning'">
-  <div class="form-group">
-    <label for="cleaningPackage">
-      <i class="fas fa-broom"></i> Select Cleaning Package:
-    </label>
-    <select id="cleaningPackage" formControlName="cleaningPackage" (change)="onCleaningPackageChange($event)">
-      <option value="" disabled selected>Select a package</option>
-      <option value="nettoyageCanape">Nettoyage Canapé / Fauteuil / Matelas</option>
-      <option value="nettoyageMaison">Nettoyage de Maison</option>
-      <option value="postConstruction">Forfait de Nettoyage Post-Construction</option>
-    </select>
-    <div *ngIf="bookingForm.get('cleaningPackage')?.invalid && (bookingForm.get('cleaningPackage')?.touched || bookingForm.get('cleaningPackage')?.dirty)">
-      <small *ngIf="bookingForm.get('cleaningPackage')?.errors?.['required']">Package selection is required.</small>
+    <div class="form-group">
+      <label for="phone"> <i class="fas fa-phone"></i> Téléphone : </label>
+      <input type="tel" id="phone" formControlName="phone" />
+      <div
+        *ngIf="
+          bookingForm.get('phone')?.invalid &&
+          (bookingForm.get('phone')?.touched || bookingForm.get('phone')?.dirty)
+        "
+      >
+        <small *ngIf="bookingForm.get('phone')?.errors?.['required']">Le numéro de téléphone est requis.</small>
+        <small *ngIf="bookingForm.get('phone')?.errors?.['pattern']">Le numéro de téléphone doit comporter 10 chiffres.</small>
+      </div>
     </div>
-  </div>
 
-  <!-- Extras for Home Cleaning -->
-  <div class="form-group">
-    <label><i class="fas fa-plus-circle"></i> Select Home Cleaning Extras:</label>
-    <div>
-      <label><input type="checkbox" formControlName="c2" (change)="checkExtras()"> Canapé 2 à 4 places ($50)</label><br>
-      <label><input type="checkbox" formControlName="c5" (change)="checkExtras()"> Canapé 5 à 7 places ($65)</label><br>
-      <label><input type="checkbox" formControlName="c8" (change)="checkExtras()"> Canapé 8 places et plus ($80)</label><br>
-      <label><input type="checkbox" formControlName="fauteuil" (change)="checkExtras()"> Fauteuil ($20)</label><br>
-      <label><input type="checkbox" formControlName="matelat" (change)="checkExtras()"> Matelat ($35)</label>
+    <div class="form-group">
+      <label for="address">
+        <i class="fas fa-map-marker-alt"></i> Adresse :
+      </label>
+      <input type="text" id="address" formControlName="address" />
+      <div
+        *ngIf="
+          bookingForm.get('address')?.invalid &&
+          (bookingForm.get('address')?.touched || bookingForm.get('address')?.dirty)
+        "
+      >
+        <small *ngIf="bookingForm.get('address')?.errors?.['required']">L'adresse est requise.</small>
+      </div>
     </div>
-    <div *ngIf="bookingForm.errors?.['atLeastOneExtraRequired']">
-      <small style="color: red;">At least one extra must be selected if you choose Nettoyage Canapé.</small>
-    </div>
-  </div>
-</div>
 
-        <div class="form-group">
-          <label for="date">
-            <i class="fas fa-calendar-alt"></i> Preferred Date:
-          </label>
-          <input type="date" id="date" formControlName="date" [min]="today" />
-          <div
-            *ngIf="
-              bookingForm.get('date')?.invalid &&
-              (bookingForm.get('date')?.touched ||
-                bookingForm.get('date')?.dirty)
-            "
-          >
-            <small *ngIf="bookingForm.get('date')?.errors?.['required']"
-              >Date is required.</small
-            >
-          </div>
+    <div class="form-group">
+      <label for="service">
+        <i class="fas fa-cogs"></i> Sélectionner un Service :
+      </label>
+      <select
+        id="service"
+        formControlName="service"
+        (change)="onServiceChange($event)"
+      >
+        <option value="" disabled selected>Sélectionnez votre service</option>
+        <option value="carWash">Service de Lavage de Voiture</option>
+        <option value="homeCleaning">Service de Nettoyage à Domicile</option>
+      </select>
+      <div *ngIf="bookingForm.get('service')?.invalid && (bookingForm.get('service')?.touched || bookingForm.get('service')?.dirty)">
+        <small *ngIf="bookingForm.get('service')?.errors?.['required']">La sélection d'un service est requise.</small>
+      </div>
+    </div>
+
+    <!-- Sélection du Service de Lavage de Voiture -->
+    <div *ngIf="selectedService === 'carWash'">
+      <div class="form-group">
+        <label for="carWashPackage">
+          <i class="fas fa-car"></i> Sélectionner un Forfait de Lavage :
+        </label>
+        <select id="carWashPackage" formControlName="carWashPackage">
+          <option value="" disabled selected>Sélectionnez un forfait</option>
+          <option value="base">Lavage de Base Express Intérieur/Extérieur - 50 $</option>
+          <option value="standard">Lavage Standard Intérieur/Extérieur Complet - 120 $</option>
+          <option value="premium">Lavage Premium Intérieur/Extérieur Complet - 200 $</option>
+        </select>
+        <div *ngIf="bookingForm.get('carWashPackage')?.invalid && (bookingForm.get('carWashPackage')?.touched || bookingForm.get('carWashPackage')?.dirty)">
+          <small *ngIf="bookingForm.get('carWashPackage')?.errors?.['required']">La sélection d'un forfait est requise.</small>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="time">
-            <i class="fas fa-clock"></i> Preferred Time:
-          </label>
-          <select id="time" formControlName="time">
-            <option value="" disabled selected>Select a time</option>
-            <option *ngFor="let hour of availableTimes" [value]="hour">
-              {{ hour }}
-            </option>
-          </select>
-          <div *ngIf="bookingForm.get('time')?.errors?.['required']">
-            <small>Time is required.</small>
-          </div>
-          <div *ngIf="bookingForm.get('time')?.errors?.['booked']">
-            <small
-              >This time slot is already booked. Please choose another
-              time.</small
-            >
-          </div>
-          <div *ngIf="userBookingError" class="error-message">
-            <small>{{ userBookingError }}</small>
-          </div>
+      <!-- Extras pour le Lavage de Voiture -->
+      <div class="form-group">
+        <label><i class="fas fa-plus-circle"></i> Sélectionner des Extras :</label>
+        <div>
+          <label><input type="checkbox" formControlName="traitementCeramique"> Traitement Céramique (150 $)</label><br>
         </div>
-
-        <button
-          type="submit"
-          class="submit-button"
-          [disabled]="isSubmitDisabled()"
-        >
-          Submit Booking
-        </button>
-      </form>
+      </div>
     </div>
+
+    <!-- Sélection du Service de Nettoyage à Domicile -->
+    <div *ngIf="selectedService === 'homeCleaning'">
+      <div class="form-group">
+        <label for="cleaningPackage">
+          <i class="fas fa-broom"></i> Sélectionner un Forfait de Nettoyage :
+        </label>
+        <select id="cleaningPackage" formControlName="cleaningPackage" (change)="onCleaningPackageChange($event)">
+          <option value="" disabled selected>Sélectionnez un forfait</option>
+          <option value="nettoyageCanape">Nettoyage Canapé / Fauteuil / Matelas</option>
+          <option value="nettoyageMaison">Nettoyage de Maison</option>
+          <option value="postConstruction">Forfait de Nettoyage Post-Construction</option>
+        </select>
+        <div *ngIf="bookingForm.get('cleaningPackage')?.invalid && (bookingForm.get('cleaningPackage')?.touched || bookingForm.get('cleaningPackage')?.dirty)">
+          <small *ngIf="bookingForm.get('cleaningPackage')?.errors?.['required']">La sélection d'un forfait est requise.</small>
+        </div>
+      </div>
+
+      <!-- Extras pour le Nettoyage à Domicile -->
+      <div class="form-group">
+        <label><i class="fas fa-plus-circle"></i> Sélectionner des Extras pour le Nettoyage à Domicile :</label>
+        <div>
+          <label><input type="checkbox" formControlName="c2" (change)="checkExtras()"> Canapé 2 à 4 places (50 $)</label><br>
+          <label><input type="checkbox" formControlName="c5" (change)="checkExtras()"> Canapé 5 à 7 places (65 $)</label><br>
+          <label><input type="checkbox" formControlName="c8" (change)="checkExtras()"> Canapé 8 places et plus (80 $)</label><br>
+          <label><input type="checkbox" formControlName="fauteuil" (change)="checkExtras()"> Fauteuil (20 $)</label><br>
+          <label><input type="checkbox" formControlName="matelat" (change)="checkExtras()"> Matelas (35 $)</label>
+        </div>
+        <div *ngIf="bookingForm.errors?.['atLeastOneExtraRequired']">
+          <small style="color: red;">Au moins un extra doit être sélectionné si vous choisissez le Nettoyage Canapé.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="date">
+        <i class="fas fa-calendar-alt"></i> Date Préférée :
+      </label>
+      <input type="date" id="date" formControlName="date" [min]="today" />
+      <div
+        *ngIf="
+          bookingForm.get('date')?.invalid &&
+          (bookingForm.get('date')?.touched || bookingForm.get('date')?.dirty)
+        "
+      >
+        <small *ngIf="bookingForm.get('date')?.errors?.['required']">La date est requise.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="time">
+        <i class="fas fa-clock"></i> Heure Préférée :
+      </label>
+      <select id="time" formControlName="time">
+        <option value="" disabled selected>Sélectionnez une heure</option>
+        <option *ngFor="let hour of availableTimes" [value]="hour">
+          {{ hour }}
+        </option>
+      </select>
+      <div *ngIf="bookingForm.get('time')?.errors?.['required']">
+        <small>L'heure est requise.</small>
+      </div>
+      <div *ngIf="bookingForm.get('time')?.errors?.['booked']">
+        <small>Cet horaire est déjà réservé. Veuillez choisir une autre heure.</small>
+      </div>
+      <div *ngIf="userBookingError" class="error-message">
+        <small>{{ userBookingError }}</small>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="submit-button"
+      [disabled]="isSubmitDisabled()"
+    >
+      Soumettre la Réservation
+    </button>
+  </form>
+</div>
   `,
   styleUrl: './booking.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

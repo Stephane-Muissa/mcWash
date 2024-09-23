@@ -10,7 +10,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'mcWash';
+  title = 'FM Mobile Car Wash Detailing';
   isNavOpen = false;
 
   toggleNavbar() {

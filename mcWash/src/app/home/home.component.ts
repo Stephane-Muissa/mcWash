@@ -79,7 +79,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
       </section>
       <div class="floating-buttons">
         <a
-          href="https://www.instagram.com"
+          href="https://www.instagram.com/frank_carwash1?igsh=MTQ4NjZ3a2ZlM3c5ag=="
           target="_blank"
           class="social-button instagram"
         >
@@ -93,7 +93,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
           <img src="assets/facebook.png" alt="Facebook" />
         </a>
         <a
-          href="https://www.tiktok.com"
+          href="https://www.tiktok.com/@frankcarwash2?_t=8pxizdsXS3a&_r=1"
           target="_blank"
           class="social-button tiktok"
         >
