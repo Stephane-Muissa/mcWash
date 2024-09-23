@@ -490,9 +490,7 @@ export class BookingComponent {
         });
       
       this.orderService.setBookingSubmitted(true); // Set the booking as submitted
-    //  this.emailService.placeOrder(service,date,time,0,address,email)
-      let to = '+243910889542'
-      let smsBody = 'FM Mobile Car Wash Detailing';
+      this.emailService.placeOrder(service,date,time,0,address,email)
       this.router.navigate(['/payment'], {
         queryParams: { name, phone, service, carWashPackage, cleaningPackage, traitementCeramique, c2, c5, c8, fauteuil, matelat },
       });

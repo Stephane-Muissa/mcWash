@@ -18,7 +18,8 @@ html, body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     font-family: 'Poppins', sans-serif;
-    border-radius: 15px; /* Rounded borders */
+    border-bottom-left-radius: 15px; /* Rounded borders */
+    border-bottom-right-radius: 15px; /* Rounded borders */
     padding: 0 20px; /* Padding for left and right */
     box-sizing: border-box; /* Include padding in total width */
 }
