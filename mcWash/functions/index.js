@@ -1,13 +1,15 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-const twilio = require("twilio");
+
 
 admin.initializeApp();
 
-const accountSid = functions.config().twilio.sid;
-const authToken = functions.config().twilio.token;
-const twilioNumber = functions.config().twilio.number;
-const twilioClient = twilio(accountSid, authToken);
+const username = "sandbox";
+const apiKey = "atsk_95ad7a6aff58f993082c9563f61027126cb51d4ffb596f1"+
+"671ea3af334c1af8"+
+"dddde4b2a";
+const senderId = "6512";
+const africasTalkingClient = require("africastalking")({username, apiKey});
 
 exports.sendSmsOnChange = functions.firestore
     .document("orders/{docId}")
@@ -68,15 +70,12 @@ exports.sendSmsOnChange = functions.firestore
           "+243972508968",
         ];
         try {
-          const sendSmsPromises = recipientNumbers.map(async (recipient) => {
-            return await twilioClient.messages.create({
-              body: messageBody.trim(),
-              from: twilioNumber,
-              to: recipient,
-            });
+          const response = await africasTalkingClient.SMS.send({
+            to: recipientNumbers,
+            message: messageBody,
+            from: senderId,
           });
-          const messages = await Promise.all(sendSmsPromises);
-          messages.forEach((message) => console.log("SMS sent:", message.sid));
+          console.log("SMS sent:", response);
         } catch (error) {
           console.error("Error sending SMS:", error);
         }
